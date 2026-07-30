@@ -348,6 +348,7 @@ function MemoryStep({ step, onDone }: StepProps) {
   const [found, setFound] = useState<string[]>([]);
   const [mistakes, setMistakes] = useState(0);
   if (step.kind !== "memory") return null;
+  const totalPairs = step.cards.length;
 
   function flip(key: string, label: string) {
     if (flipped.length === 2 || flipped.includes(key) || found.includes(label)) return;
@@ -359,7 +360,7 @@ function MemoryStep({ step, onDone }: StepProps) {
         const nextFound = [...found, a.label];
         setFound(nextFound);
         setFlipped([]);
-        if (nextFound.length === step.cards.length) setTimeout(() => onDone(mistakes), 600);
+        if (nextFound.length === totalPairs) setTimeout(() => onDone(mistakes), 600);
       } else {
         setMistakes((m) => m + 1);
         setTimeout(() => setFlipped([]), 900);
