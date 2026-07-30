@@ -32,7 +32,7 @@ export function RewardScreen({
         </div>
       </div>
       <div className="flex flex-wrap justify-center gap-3">
-        <BigButton size="lg" variant="accent" asChildless={undefined} onClick={onReplay}>
+        <BigButton size="lg" variant="accent" onClick={onReplay}>
           Play again
         </BigButton>
         <Link to="/map">
