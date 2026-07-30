@@ -159,7 +159,60 @@
   }
 
   body {
-    background-color: var(--color-background);
+    background: var(--gradient-sky) fixed;
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+  }
+
+  :focus-visible {
+    outline: 4px solid var(--color-ring);
+    outline-offset: 3px;
+  }
+}
+
+@utility toy-card {
+  background: var(--color-card);
+  border-radius: var(--radius-4xl);
+  box-shadow: var(--shadow-float);
+  border: 4px solid color-mix(in oklab, var(--foreground) 8%, transparent);
+}
+
+@utility pop-in {
+  animation: pop-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@utility wiggle {
+  animation: wiggle 2.6s ease-in-out infinite;
+}
+
+@utility bob {
+  animation: bob 3s ease-in-out infinite;
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.85) translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }
