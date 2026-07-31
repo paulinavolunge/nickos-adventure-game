@@ -14,10 +14,10 @@ export const Route = createFileRoute("/")({
         content:
           "Play as Nicko the tabby cat and learn real-life skills like calling 911, kindness, and street safety through friendly mini-games. No ads.",
       },
-      { property: "og:title", content: "Nicko's Adventures — Life Lessons Game for Kids" },
+      { property: "og:title", content: "Nicko's Adventures — Life Lessons Game for Kids 4-8" },
       {
         property: "og:description",
-        content: "A gentle, ad-free learning adventure for ages 4-8, starring Nicko the gray tabby cat.",
+        content: "Play as Nicko the tabby cat and learn real-life skills like calling 911, kindness, and street safety through friendly mini-games. No ads.",
       },
     ],
   }),
