@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MapRouteImport } from './routes/map'
 import { Route as ParentsRouteImport } from './routes/parents'
+import { Route as RewardsRouteImport } from './routes/rewards'
 import { Route as LessonLessonIdRouteImport } from './routes/lesson.$lessonId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const ParentsRoute = ParentsRouteImport.update({
   path: '/parents',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RewardsRoute = RewardsRouteImport.update({
+  id: '/rewards',
+  path: '/rewards',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LessonLessonIdRoute = LessonLessonIdRouteImport.update({
   id: '/lesson/$lessonId',
   path: '/lesson/$lessonId',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/map': typeof MapRoute
   '/parents': typeof ParentsRoute
+  '/rewards': typeof RewardsRoute
   '/lesson/$lessonId': typeof LessonLessonIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/map': typeof MapRoute
   '/parents': typeof ParentsRoute
+  '/rewards': typeof RewardsRoute
   '/lesson/$lessonId': typeof LessonLessonIdRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/map': typeof MapRoute
   '/parents': typeof ParentsRoute
+  '/rewards': typeof RewardsRoute
   '/lesson/$lessonId': typeof LessonLessonIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/map' | '/parents' | '/lesson/$lessonId'
+  fullPaths: '/' | '/map' | '/parents' | '/rewards' | '/lesson/$lessonId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/map' | '/parents' | '/lesson/$lessonId'
-  id: '__root__' | '/' | '/map' | '/parents' | '/lesson/$lessonId'
+  to: '/' | '/map' | '/parents' | '/rewards' | '/lesson/$lessonId'
+  id: '__root__' | '/' | '/map' | '/parents' | '/rewards' | '/lesson/$lessonId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MapRoute: typeof MapRoute
   ParentsRoute: typeof ParentsRoute
+  RewardsRoute: typeof RewardsRoute
   LessonLessonIdRoute: typeof LessonLessonIdRoute
 }
 
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ParentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rewards': {
+      id: '/rewards'
+      path: '/rewards'
+      fullPath: '/rewards'
+      preLoaderRoute: typeof RewardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lesson/$lessonId': {
       id: '/lesson/$lessonId'
       path: '/lesson/$lessonId'
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MapRoute: MapRoute,
   ParentsRoute: ParentsRoute,
+  RewardsRoute: RewardsRoute,
   LessonLessonIdRoute: LessonLessonIdRoute,
 }
 export const routeTree = rootRouteImport

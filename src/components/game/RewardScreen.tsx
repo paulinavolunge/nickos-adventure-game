@@ -1,28 +1,42 @@
 import { Link } from "@tanstack/react-router";
+import { Heart } from "lucide-react";
 import type { Lesson } from "@/game/types";
+import { unlockedMilestones } from "@/game/hearts";
+import { useSave } from "@/game/progress";
 import { BigButton } from "./BigButton";
+import { HeartMeter } from "./HeartMeter";
 import { NickoSays } from "./NickoSays";
 import { Stars } from "./Stars";
 
 export function RewardScreen({
   lesson,
   stars,
+  heartsEarned,
   onReplay,
 }: {
   lesson: Lesson;
   stars: number;
+  heartsEarned: number;
   onReplay: () => void;
 }) {
+  const { data } = useSave();
+  const before = Math.max(0, data.hearts - heartsEarned);
+  const newlyUnlocked = unlockedMilestones(data.hearts).filter((m) => m.hearts > before);
+
   return (
-    <div className="space-y-6 pop-in">
+    <div className="space-y-5 pop-in">
       <NickoSays
-        line={`Amazing work! You earned the ${lesson.badge.name} badge. I'm so proud of you!`}
+        line={`You did it! I earned the ${lesson.badge.name} badge because you helped me. My heart feels so full!`}
       />
+
       <div className="toy-card space-y-5 p-6 text-center">
-        <h2 className="text-3xl font-black">Lesson Complete!</h2>
+        <h2 className="font-display text-3xl font-black">Adventure Complete!</h2>
         <div className="flex justify-center">
           <Stars value={stars} size={44} />
         </div>
+        <p className="inline-flex items-center gap-2 rounded-full bg-coral px-5 py-2 font-display text-xl font-black text-coral-foreground">
+          <Heart aria-hidden className="h-5 w-5 fill-current heart-pop" />+{heartsEarned} hearts
+        </p>
         <div className="grid grid-cols-3 gap-3">
           <RewardTile emoji={lesson.badge.emoji} label="Badge" name={lesson.badge.name} />
           <RewardTile emoji={lesson.sticker.emoji} label="Sticker" name={lesson.sticker.name} />
@@ -31,10 +45,46 @@ export function RewardScreen({
           )}
         </div>
       </div>
+
+      <HeartMeter hearts={data.hearts} />
+
+      {newlyUnlocked.length > 0 && (
+        <div className="toy-card space-y-3 p-5">
+          <h3 className="text-center font-display text-xl font-black">New friendship unlocks!</h3>
+          {newlyUnlocked.map((m) => (
+            <div key={m.id} className="pop-in flex items-center gap-3 rounded-3xl bg-muted p-3">
+              <span aria-hidden className="text-4xl">
+                {m.emoji}
+              </span>
+              <div className="min-w-0">
+                <p className="font-bold">{m.name}</p>
+                <p className="text-sm text-muted-foreground">{m.blurb}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {lesson.skills && lesson.skills.length > 0 && (
+        <div className="toy-card space-y-2 p-5">
+          <h3 className="font-display text-lg font-black">What you practiced</h3>
+          <ul className="space-y-1 text-sm font-semibold">
+            {lesson.skills.map((s) => (
+              <li key={s}>✅ {s}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <div className="flex flex-wrap justify-center gap-3">
         <BigButton size="lg" variant="accent" onClick={onReplay}>
           Play again
         </BigButton>
+        <Link to="/rewards">
+          <BigButton size="lg" variant="grape">
+            Nicko&apos;s room
+          </BigButton>
+        </Link>
         <Link to="/map">
           <BigButton size="lg">Back to map</BigButton>
         </Link>
