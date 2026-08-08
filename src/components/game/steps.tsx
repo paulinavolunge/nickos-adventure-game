@@ -1,11 +1,15 @@
 import { useMemo, useState } from "react";
-import { Check, X } from "lucide-react";
+import { Check, Heart, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Step } from "@/game/types";
+import { useSfx } from "@/game/useSfx";
 import { BigButton } from "./BigButton";
 import { NickoSays } from "./NickoSays";
 
-export type StepProps = { step: Step; onDone: (mistakes: number) => void };
+export type StepProps = {
+  step: Step;
+  onDone: (mistakes: number, bonusHearts?: number) => void;
+};
 
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -30,6 +34,62 @@ function StoryStep({ step, onDone }: StepProps) {
   );
 }
 
+function ChoiceStep({ step, onDone }: StepProps) {
+  const [picked, setPicked] = useState<number | null>(null);
+  const sfx = useSfx();
+  if (step.kind !== "choice") return null;
+
+  const chosen = picked === null ? null : step.options[picked];
+
+  return (
+    <Panel title={step.title}>
+      <p className="toy-card p-5 text-center text-base font-semibold">{step.scene}</p>
+      <p className="text-center text-lg font-black">{step.question}</p>
+      <div className="grid gap-3">
+        {step.options.map((opt, i) => (
+          <button
+            key={opt.label}
+            onClick={() => {
+              setPicked(i);
+              sfx(opt.best ? "heart" : "oops");
+            }}
+            className={cn(
+              "toy-card flex min-h-20 items-center gap-3 p-4 text-left text-base font-bold transition-transform active:scale-95",
+              picked === i && opt.best && "bg-accent text-accent-foreground",
+              picked === i && !opt.best && "bg-sunny text-sunny-foreground",
+            )}
+          >
+            <span aria-hidden className="text-3xl">
+              {opt.emoji}
+            </span>
+            {opt.label}
+          </button>
+        ))}
+      </div>
+      {chosen && (
+        <div className="toy-card pop-in space-y-3 p-4">
+          <p className="font-bold">{chosen.feedback}</p>
+          {chosen.hearts > 0 && (
+            <p className="flex items-center gap-2 font-black text-coral">
+              <Heart aria-hidden className="h-5 w-5 fill-coral heart-pop" />+{chosen.hearts} hearts for Nicko
+            </p>
+          )}
+          <div className="flex justify-center gap-3">
+            {!chosen.best && (
+              <BigButton variant="quiet" onClick={() => setPicked(null)}>
+                Try another
+              </BigButton>
+            )}
+            <BigButton variant={chosen.best ? "accent" : "primary"} onClick={() => onDone(chosen.best ? 0 : 1, chosen.hearts)}>
+              {chosen.best ? "Keep going" : "Next"}
+            </BigButton>
+          </div>
+        </div>
+      )}
+    </Panel>
+  );
+}
+
 const MOVES = [
   { key: "jump", label: "Jump", emoji: "⬆️" },
   { key: "duck", label: "Duck", emoji: "⬇️" },
@@ -40,6 +100,7 @@ function ObstacleStep({ step, onDone }: StepProps) {
   const [lane, setLane] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [shake, setShake] = useState(false);
+  const sfx = useSfx();
   if (step.kind !== "obstacle") return null;
 
   const current = step.lanes[lane];
@@ -48,9 +109,11 @@ function ObstacleStep({ step, onDone }: StepProps) {
   function choose(move: string) {
     if (step.kind !== "obstacle") return;
     if (move === current.safe) {
+      sfx("good");
       if (lane + 1 >= step.lanes.length) onDone(mistakes);
       else setLane(lane + 1);
     } else {
+      sfx("oops");
       setMistakes((m) => m + 1);
       setShake(true);
       setTimeout(() => setShake(false), 400);
@@ -102,6 +165,7 @@ function ObstacleStep({ step, onDone }: StepProps) {
 function QuizStep({ step, onDone }: StepProps) {
   const [picked, setPicked] = useState<number | null>(null);
   const [mistakes, setMistakes] = useState(0);
+  const sfx = useSfx();
   if (step.kind !== "quiz") return null;
 
   const chosen = picked === null ? null : step.options[picked];
@@ -115,6 +179,7 @@ function QuizStep({ step, onDone }: StepProps) {
             key={opt.label}
             onClick={() => {
               setPicked(i);
+              sfx(opt.correct ? "good" : "oops");
               if (!opt.correct) setMistakes((m) => m + 1);
             }}
             className={cn(
@@ -399,6 +464,7 @@ export function StepRenderer(props: StepProps) {
     <div className="space-y-5">
       <NickoSays line={step.narration} small />
       {step.kind === "story" && <StoryStep {...props} />}
+      {step.kind === "choice" && <ChoiceStep {...props} />}
       {step.kind === "obstacle" && <ObstacleStep {...props} />}
       {step.kind === "quiz" && <QuizStep {...props} />}
       {step.kind === "keypad" && <KeypadStep {...props} />}

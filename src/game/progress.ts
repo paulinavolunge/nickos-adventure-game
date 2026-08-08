@@ -14,6 +14,11 @@ export type SaveData = {
   stickers: string[];
   outfits: string[];
   equippedOutfit: string | null;
+  hearts: number;
+  decorations: string[];
+  trophies: string[];
+  stories: string[];
+  areas: string[];
   settings: { narration: boolean; sound: boolean; bigText: boolean; reducedMotion: boolean };
 };
 
@@ -26,8 +31,15 @@ const EMPTY: SaveData = {
   stickers: [],
   outfits: [],
   equippedOutfit: null,
+  hearts: 0,
+  decorations: [],
+  trophies: [],
+  stories: [],
+  areas: [],
   settings: { narration: true, sound: true, bigText: false, reducedMotion: false },
 };
+
+export const EMPTY_SAVE = EMPTY;
 
 let cache: SaveData = EMPTY;
 let loaded = false;
@@ -81,11 +93,13 @@ export function completeLesson(
     badgeId: string;
     stickerId: string;
     outfitId?: string;
+    hearts?: number;
   },
 ): SaveData {
   const prev = save.lessons[opts.lessonId];
   return {
     ...save,
+    hearts: (save.hearts ?? 0) + (opts.hearts ?? 0),
     lessons: {
       ...save.lessons,
       [opts.lessonId]: {

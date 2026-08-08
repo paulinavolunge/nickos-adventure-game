@@ -216,3 +216,28 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+@utility heart-fill {
+  background: var(--gradient-fun);
+}
+
+@utility heart-pop {
+  animation: heart-pop 0.6s ease-out;
+}
+
+@utility heart-float {
+  animation: heart-float 1.4s ease-out forwards;
+}
+
+@keyframes heart-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+@keyframes heart-float {
+  0% { opacity: 0; transform: translate(-50%, 12px) scale(0.8); }
+  25% { opacity: 1; transform: translate(-50%, 0) scale(1.05); }
+  75% { opacity: 1; transform: translate(-50%, -10px) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -34px) scale(0.95); }
+}

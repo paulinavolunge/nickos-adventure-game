@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Lock, Home } from "lucide-react";
+import { Lock, Home, Sparkles } from "lucide-react";
 import worldmap from "@/assets/worldmap.jpg";
 import { BigButton } from "@/components/game/BigButton";
+import { HeartMeter } from "@/components/game/HeartMeter";
 import { NickoSays } from "@/components/game/NickoSays";
 import { Stars } from "@/components/game/Stars";
 import { LESSONS } from "@/game/lessons";
@@ -36,14 +37,21 @@ function WorldMap() {
 
   return (
     <main className="mx-auto w-full max-w-md space-y-5 px-4 py-6">
-      <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+      <header className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2">
         <h1 className="truncate text-3xl font-black">Nicko&apos;s World</h1>
+        <Link to="/rewards" aria-label="Open Nicko's reward room">
+          <BigButton variant="grape" size="icon">
+            <Sparkles aria-hidden className="h-6 w-6" />
+          </BigButton>
+        </Link>
         <Link to="/" aria-label="Back to title screen">
           <BigButton variant="quiet" size="icon">
             <Home aria-hidden className="h-6 w-6" />
           </BigButton>
         </Link>
       </header>
+
+      <HeartMeter hearts={data.hearts} />
 
       <img
         src={worldmap}

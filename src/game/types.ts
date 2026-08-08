@@ -34,6 +34,19 @@ export type Step =
       title: string;
       code: string;
       hint: string;
+    })
+  | (StepBase & {
+      kind: "choice";
+      title: string;
+      scene: string;
+      question: string;
+      options: Array<{
+        label: string;
+        emoji: string;
+        hearts: number;
+        best?: boolean;
+        feedback: string;
+      }>;
     });
 
 export type Lesson = {
@@ -44,6 +57,7 @@ export type Lesson = {
   emoji: string;
   tint: "primary" | "coral" | "grape" | "accent" | "sunny";
   available: boolean;
+  skills?: string[];
   badge: { id: string; name: string; emoji: string };
   sticker: { id: string; name: string; emoji: string };
   outfit?: { id: string; name: string; emoji: string };

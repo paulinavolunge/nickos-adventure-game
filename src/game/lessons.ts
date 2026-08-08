@@ -8,6 +8,13 @@ const call911: Lesson = {
   emoji: "🚒",
   tint: "coral",
   available: true,
+  skills: [
+    "Telling an emergency from a small problem",
+    "Dialing 911 correctly",
+    "Staying calm under pressure",
+    "Giving name, place, and what happened",
+    "Finding a trusted adult",
+  ],
   badge: { id: "helper-hero", name: "Helper Hero", emoji: "🦸" },
   sticker: { id: "fire-truck", name: "Shiny Fire Truck", emoji: "🚒" },
   outfit: { id: "firefighter-hat", name: "Firefighter Hat", emoji: "⛑️" },
@@ -32,6 +39,37 @@ const call911: Lesson = {
         { prompt: "A low tree branch ahead!", safe: "duck" },
         { prompt: "A calm, clear sidewalk.", safe: "walk" },
         { prompt: "A puddle with a hose across it!", safe: "jump" },
+      ],
+    },
+    {
+      id: "decide",
+      kind: "choice",
+      title: "Nicko Needs Your Help",
+      scene:
+        "Nicko peeks around the corner. Mr. Bell has fallen off his ladder and is holding his arm. He can't get up. Nobody else is nearby.",
+      question: "What should Nicko do?",
+      narration:
+        "Uh oh. Mr. Bell is hurt and can't get up. What should I do? Tap the choice you think is best.",
+      options: [
+        {
+          label: "Call 911 — someone is really hurt",
+          emoji: "📞",
+          hearts: 5,
+          best: true,
+          feedback: "That's it! A person who is badly hurt needs help fast. Calling 911 is exactly right.",
+        },
+        {
+          label: "Call 911 because I can't find my toy mouse",
+          emoji: "🧸",
+          hearts: 0,
+          feedback: "A lost toy is a small problem. 911 helpers must stay free for real emergencies.",
+        },
+        {
+          label: "Walk away and keep playing",
+          emoji: "🙈",
+          hearts: 0,
+          feedback: "Walking away leaves Mr. Bell alone. Helpers never ignore someone in danger.",
+        },
       ],
     },
     {
@@ -113,6 +151,37 @@ const call911: Lesson = {
       ],
     },
     {
+      id: "grownup",
+      kind: "choice",
+      title: "Find a Grown-Up You Trust",
+      scene:
+        "Nicko is still holding the phone. His heart is beating fast. Ms. Rosa, the neighbor Nicko knows well, is watering her flowers next door.",
+      question: "What is the kindest, safest next step?",
+      narration:
+        "I called for help. Now what should I do while we wait? Pick the safest idea.",
+      options: [
+        {
+          label: "Tell Ms. Rosa so a grown-up can help too",
+          emoji: "🌷",
+          hearts: 5,
+          best: true,
+          feedback: "Perfect. Trusted grown-ups help while the 911 helpers are on the way.",
+        },
+        {
+          label: "Hang up and hide under the porch",
+          emoji: "😰",
+          hearts: 0,
+          feedback: "Hiding is scary and Mr. Bell would be alone. Stay on the phone and get a grown-up.",
+        },
+        {
+          label: "Try to lift Mr. Bell all by myself",
+          emoji: "💪",
+          hearts: 0,
+          feedback: "Moving a hurt person can hurt them more. Wait for the helpers instead.",
+        },
+      ],
+    },
+    {
       id: "outro",
       kind: "story",
       title: "The Helpers Arrived!",
@@ -132,6 +201,7 @@ function upcoming(
   tint: Lesson["tint"],
   badge: [string, string],
   sticker: [string, string],
+  skills: string[] = [],
 ): Lesson {
   return {
     id,
@@ -141,6 +211,7 @@ function upcoming(
     emoji,
     tint,
     available: false,
+    skills,
     badge: { id: `${id}-badge`, name: badge[0], emoji: badge[1] },
     sticker: { id: `${id}-sticker`, name: sticker[0], emoji: sticker[1] },
     steps: [],
@@ -149,13 +220,15 @@ function upcoming(
 
 export const LESSONS: Lesson[] = [
   call911,
-  upcoming("kindness", 2, "Kindness Counts", "Little kind acts make big smiles.", "💗", "grape", ["Kind Heart", "💖"], ["Rainbow Heart", "🌈"]),
-  upcoming("stranger-safety", 3, "Stranger Safety", "Check with a grown-up you trust.", "🛡️", "primary", ["Safe Scout", "🛡️"], ["Trusty Shield", "🔰"]),
-  upcoming("big-feelings", 4, "Big Feelings", "Name it to tame it.", "😊", "sunny", ["Feelings Friend", "🌟"], ["Mood Cloud", "☁️"]),
-  upcoming("fire-safety", 5, "Fire Safety", "Stop, drop, and roll.", "🧯", "coral", ["Flame Tamer", "🧯"], ["Smoke Alarm", "🚨"]),
-  upcoming("crossing-streets", 6, "Crossing Streets", "Stop, look, listen, walk.", "🚦", "accent", ["Street Smart", "🚦"], ["Crosswalk", "🦓"]),
-  upcoming("honesty", 7, "Honesty Helps", "The truth makes things better.", "🤝", "grape", ["Truth Teller", "🗝️"], ["Golden Star", "⭐"]),
-  upcoming("teamwork", 8, "Teamwork Time", "Together is stronger.", "🧩", "primary", ["Team Captain", "🏅"], ["Puzzle Piece", "🧩"]),
+  upcoming("fire-safety", 2, "Fire Safety", "Stop, drop, and roll.", "🧯", "coral", ["Flame Tamer", "🧯"], ["Smoke Alarm", "🚨"], ["Fire escape plan", "Stop, drop and roll", "Smoke alarm sounds"]),
+  upcoming("stranger-safety", 3, "Stranger Safety", "Check with a grown-up you trust.", "🛡️", "primary", ["Safe Scout", "🛡️"], ["Trusty Shield", "🔰"], ["Safe vs. unsafe requests", "Family password", "Saying no loudly"]),
+  upcoming("kindness", 4, "Kindness Counts", "Little kind acts make big smiles.", "💗", "grape", ["Kind Heart", "💖"], ["Rainbow Heart", "🌈"], ["Noticing others' feelings", "Sharing and including", "Kind words"]),
+  upcoming("big-feelings", 5, "Big Feelings", "Name it to tame it.", "😊", "sunny", ["Feelings Friend", "🌟"], ["Mood Cloud", "☁️"], ["Naming emotions", "Calm-down breathing", "Asking for a hug"]),
+  upcoming("teamwork", 6, "Teamwork Time", "Together is stronger.", "🧩", "primary", ["Team Captain", "🏅"], ["Puzzle Piece", "🧩"], ["Taking turns", "Asking for help", "Cheering others on"]),
+  upcoming("healthy-habits", 7, "Healthy Habits", "Strong bodies, happy days.", "🥕", "accent", ["Habit Hero", "🥕"], ["Toothbrush", "🪥"], ["Handwashing", "Bedtime routine", "Healthy snacks"]),
+  upcoming("animal-care", 8, "Animal Care", "Gentle hands, happy pets.", "🐾", "grape", ["Pet Pal", "🐾"], ["Paw Print", "🐕"], ["Gentle petting", "Food and water", "Reading animal body language"]),
+  upcoming("problem-solving", 9, "Problem Solving", "Think it through, step by step.", "🧠", "sunny", ["Puzzle Brain", "🧠"], ["Lightbulb", "💡"], ["Breaking problems into steps", "Trying again", "Asking good questions"]),
+  upcoming("crossing-streets", 10, "Crossing Streets", "Stop, look, listen, walk.", "🚦", "coral", ["Street Smart", "🚦"], ["Crosswalk", "🦓"], ["Using crosswalks", "Looking both ways", "Waiting for the walk signal"]),
 ];
 
 export function getLesson(id: string) {

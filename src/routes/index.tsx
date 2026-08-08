@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Play, Map as MapIcon, ShieldCheck } from "lucide-react";
+import { Play, Map as MapIcon, ShieldCheck, Sparkles } from "lucide-react";
 import nicko from "@/assets/nicko.png";
 import { BigButton } from "@/components/game/BigButton";
+import { HeartMeter } from "@/components/game/HeartMeter";
 import { Stars } from "@/components/game/Stars";
 import { totalStars, useSave } from "@/game/progress";
 
@@ -29,12 +30,15 @@ function TitleScreen() {
   const stars = totalStars(data);
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col items-center justify-center gap-6 px-5 py-10 text-center">
+    <main
+      className={`mx-auto flex min-h-dvh w-full max-w-md flex-col items-center justify-center gap-5 px-5 py-10 text-center ${data.settings.bigText ? "text-lg" : ""}`}
+    >
       <img
         src={nicko}
         alt="Nicko the friendly gray tabby cat waving"
         width={1024}
         height={1024}
+        fetchPriority="high"
         className="w-56 max-w-full object-contain bob drop-shadow-xl"
       />
       <div>
@@ -43,6 +47,8 @@ function TitleScreen() {
           Big lessons for little heroes
         </p>
       </div>
+
+      <HeartMeter hearts={data.hearts} className="w-full" />
 
       {stars > 0 && (
         <div className="toy-card flex items-center gap-3 px-5 py-3">
@@ -62,6 +68,12 @@ function TitleScreen() {
           <BigButton variant="sunny" className="w-full">
             <MapIcon aria-hidden className="h-6 w-6" />
             World map
+          </BigButton>
+        </Link>
+        <Link to="/rewards" className="w-full">
+          <BigButton variant="grape" className="w-full">
+            <Sparkles aria-hidden className="h-6 w-6" />
+            Nicko&apos;s room
           </BigButton>
         </Link>
         <Link to="/parents" className="w-full">
