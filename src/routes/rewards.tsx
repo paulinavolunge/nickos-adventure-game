@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Home, Lock } from "lucide-react";
+import { Home } from "lucide-react";
 import nicko from "@/assets/nicko.png";
 import { BigButton } from "@/components/game/BigButton";
 import { HeartMeter } from "@/components/game/HeartMeter";
