@@ -201,6 +201,7 @@ function upcoming(
   tint: Lesson["tint"],
   badge: [string, string],
   sticker: [string, string],
+  skills: string[] = [],
 ): Lesson {
   return {
     id,
@@ -210,6 +211,7 @@ function upcoming(
     emoji,
     tint,
     available: false,
+    skills,
     badge: { id: `${id}-badge`, name: badge[0], emoji: badge[1] },
     sticker: { id: `${id}-sticker`, name: sticker[0], emoji: sticker[1] },
     steps: [],
@@ -218,13 +220,15 @@ function upcoming(
 
 export const LESSONS: Lesson[] = [
   call911,
-  upcoming("kindness", 2, "Kindness Counts", "Little kind acts make big smiles.", "💗", "grape", ["Kind Heart", "💖"], ["Rainbow Heart", "🌈"]),
-  upcoming("stranger-safety", 3, "Stranger Safety", "Check with a grown-up you trust.", "🛡️", "primary", ["Safe Scout", "🛡️"], ["Trusty Shield", "🔰"]),
-  upcoming("big-feelings", 4, "Big Feelings", "Name it to tame it.", "😊", "sunny", ["Feelings Friend", "🌟"], ["Mood Cloud", "☁️"]),
-  upcoming("fire-safety", 5, "Fire Safety", "Stop, drop, and roll.", "🧯", "coral", ["Flame Tamer", "🧯"], ["Smoke Alarm", "🚨"]),
-  upcoming("crossing-streets", 6, "Crossing Streets", "Stop, look, listen, walk.", "🚦", "accent", ["Street Smart", "🚦"], ["Crosswalk", "🦓"]),
-  upcoming("honesty", 7, "Honesty Helps", "The truth makes things better.", "🤝", "grape", ["Truth Teller", "🗝️"], ["Golden Star", "⭐"]),
-  upcoming("teamwork", 8, "Teamwork Time", "Together is stronger.", "🧩", "primary", ["Team Captain", "🏅"], ["Puzzle Piece", "🧩"]),
+  upcoming("fire-safety", 2, "Fire Safety", "Stop, drop, and roll.", "🧯", "coral", ["Flame Tamer", "🧯"], ["Smoke Alarm", "🚨"], ["Fire escape plan", "Stop, drop and roll", "Smoke alarm sounds"]),
+  upcoming("stranger-safety", 3, "Stranger Safety", "Check with a grown-up you trust.", "🛡️", "primary", ["Safe Scout", "🛡️"], ["Trusty Shield", "🔰"], ["Safe vs. unsafe requests", "Family password", "Saying no loudly"]),
+  upcoming("kindness", 4, "Kindness Counts", "Little kind acts make big smiles.", "💗", "grape", ["Kind Heart", "💖"], ["Rainbow Heart", "🌈"], ["Noticing others' feelings", "Sharing and including", "Kind words"]),
+  upcoming("big-feelings", 5, "Big Feelings", "Name it to tame it.", "😊", "sunny", ["Feelings Friend", "🌟"], ["Mood Cloud", "☁️"], ["Naming emotions", "Calm-down breathing", "Asking for a hug"]),
+  upcoming("teamwork", 6, "Teamwork Time", "Together is stronger.", "🧩", "primary", ["Team Captain", "🏅"], ["Puzzle Piece", "🧩"], ["Taking turns", "Asking for help", "Cheering others on"]),
+  upcoming("healthy-habits", 7, "Healthy Habits", "Strong bodies, happy days.", "🥕", "accent", ["Habit Hero", "🥕"], ["Toothbrush", "🪥"], ["Handwashing", "Bedtime routine", "Healthy snacks"]),
+  upcoming("animal-care", 8, "Animal Care", "Gentle hands, happy pets.", "🐾", "grape", ["Pet Pal", "🐾"], ["Paw Print", "🐕"], ["Gentle petting", "Food and water", "Reading animal body language"]),
+  upcoming("problem-solving", 9, "Problem Solving", "Think it through, step by step.", "🧠", "sunny", ["Puzzle Brain", "🧠"], ["Lightbulb", "💡"], ["Breaking problems into steps", "Trying again", "Asking good questions"]),
+  upcoming("crossing-streets", 10, "Crossing Streets", "Stop, look, listen, walk.", "🚦", "coral", ["Street Smart", "🚦"], ["Crosswalk", "🦓"], ["Using crosswalks", "Looking both ways", "Waiting for the walk signal"]),
 ];
 
 export function getLesson(id: string) {
