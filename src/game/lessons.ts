@@ -151,6 +151,37 @@ const call911: Lesson = {
       ],
     },
     {
+      id: "grownup",
+      kind: "choice",
+      title: "Find a Grown-Up You Trust",
+      scene:
+        "Nicko is still holding the phone. His heart is beating fast. Ms. Rosa, the neighbor Nicko knows well, is watering her flowers next door.",
+      question: "What is the kindest, safest next step?",
+      narration:
+        "I called for help. Now what should I do while we wait? Pick the safest idea.",
+      options: [
+        {
+          label: "Tell Ms. Rosa so a grown-up can help too",
+          emoji: "🌷",
+          hearts: 5,
+          best: true,
+          feedback: "Perfect. Trusted grown-ups help while the 911 helpers are on the way.",
+        },
+        {
+          label: "Hang up and hide under the porch",
+          emoji: "😰",
+          hearts: 0,
+          feedback: "Hiding is scary and Mr. Bell would be alone. Stay on the phone and get a grown-up.",
+        },
+        {
+          label: "Try to lift Mr. Bell all by myself",
+          emoji: "💪",
+          hearts: 0,
+          feedback: "Moving a hurt person can hurt them more. Wait for the helpers instead.",
+        },
+      ],
+    },
+    {
       id: "outro",
       kind: "story",
       title: "The Helpers Arrived!",
