@@ -8,6 +8,13 @@ const call911: Lesson = {
   emoji: "🚒",
   tint: "coral",
   available: true,
+  skills: [
+    "Telling an emergency from a small problem",
+    "Dialing 911 correctly",
+    "Staying calm under pressure",
+    "Giving name, place, and what happened",
+    "Finding a trusted adult",
+  ],
   badge: { id: "helper-hero", name: "Helper Hero", emoji: "🦸" },
   sticker: { id: "fire-truck", name: "Shiny Fire Truck", emoji: "🚒" },
   outfit: { id: "firefighter-hat", name: "Firefighter Hat", emoji: "⛑️" },
