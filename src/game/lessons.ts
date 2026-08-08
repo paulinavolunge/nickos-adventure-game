@@ -42,6 +42,37 @@ const call911: Lesson = {
       ],
     },
     {
+      id: "decide",
+      kind: "choice",
+      title: "Nicko Needs Your Help",
+      scene:
+        "Nicko peeks around the corner. Mr. Bell has fallen off his ladder and is holding his arm. He can't get up. Nobody else is nearby.",
+      question: "What should Nicko do?",
+      narration:
+        "Uh oh. Mr. Bell is hurt and can't get up. What should I do? Tap the choice you think is best.",
+      options: [
+        {
+          label: "Call 911 — someone is really hurt",
+          emoji: "📞",
+          hearts: 5,
+          best: true,
+          feedback: "That's it! A person who is badly hurt needs help fast. Calling 911 is exactly right.",
+        },
+        {
+          label: "Call 911 because I can't find my toy mouse",
+          emoji: "🧸",
+          hearts: 0,
+          feedback: "A lost toy is a small problem. 911 helpers must stay free for real emergencies.",
+        },
+        {
+          label: "Walk away and keep playing",
+          emoji: "🙈",
+          hearts: 0,
+          feedback: "Walking away leaves Mr. Bell alone. Helpers never ignore someone in danger.",
+        },
+      ],
+    },
+    {
       id: "when",
       kind: "quiz",
       title: "Is This a 911 Moment?",
