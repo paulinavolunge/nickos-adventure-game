@@ -3,7 +3,8 @@ import { Home } from "lucide-react";
 import { BigButton } from "@/components/game/BigButton";
 import { Stars } from "@/components/game/Stars";
 import { LESSONS } from "@/game/lessons";
-import { totalStars, useSave } from "@/game/progress";
+import { EMPTY_SAVE, totalStars, useSave } from "@/game/progress";
+import { heartLevel } from "@/game/hearts";
 
 export const Route = createFileRoute("/parents")({
   head: () => ({
@@ -44,8 +45,37 @@ function ParentDashboard() {
 
       <section className="toy-card grid grid-cols-3 gap-2 p-4 text-center">
         <Stat label="Stars" value={String(totalStars(data))} />
-        <Stat label="Badges" value={String(data.badges.length)} />
+        <Stat label="Hearts" value={String(data.hearts)} />
         <Stat label="Minutes" value={String(Math.round(played / 60))} />
+      </section>
+
+      <section className="toy-card p-4">
+        <p className="font-bold">
+          Friendship level: {heartLevel(data.hearts).mood} {heartLevel(data.hearts).name}
+        </p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Hearts are earned for kind, safe and thoughtful choices — never for time spent or streaks.
+          There are no timers, no ads, and nothing to buy.
+        </p>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-xl font-black">Skills learned</h2>
+        <ul className="space-y-2">
+          {LESSONS.filter((l) => data.lessons[l.id]).flatMap((l) =>
+            (l.skills ?? []).map((skill) => (
+              <li key={`${l.id}-${skill}`} className="toy-card p-3 text-sm font-semibold">
+                ✅ {skill}
+                <span className="block text-xs font-bold text-muted-foreground">{l.title}</span>
+              </li>
+            )),
+          )}
+          {LESSONS.every((l) => !data.lessons[l.id]) && (
+            <li className="toy-card p-3 text-sm font-semibold text-muted-foreground">
+              Skills appear here as your child completes adventures.
+            </li>
+          )}
+        </ul>
       </section>
 
       <section className="space-y-3">
@@ -113,15 +143,7 @@ function ParentDashboard() {
           className="w-full"
           onClick={() => {
             if (window.confirm("Erase all saved progress on this device?")) {
-              update(() => ({
-                playerName: "Friend",
-                lessons: {},
-                badges: [],
-                stickers: [],
-                outfits: [],
-                equippedOutfit: null,
-                settings: data.settings,
-              }));
+              update(() => ({ ...EMPTY_SAVE, settings: data.settings }));
             }
           }}
         >
