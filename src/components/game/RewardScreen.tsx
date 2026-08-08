@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
 import type { Lesson } from "@/game/types";
 import { unlockedMilestones } from "@/game/hearts";
+import { LESSONS } from "@/game/lessons";
 import { useSave } from "@/game/progress";
 import { BigButton } from "./BigButton";
 import { HeartMeter } from "./HeartMeter";
@@ -22,6 +23,7 @@ export function RewardScreen({
   const { data } = useSave();
   const before = Math.max(0, data.hearts - heartsEarned);
   const newlyUnlocked = unlockedMilestones(data.hearts).filter((m) => m.hearts > before);
+  const nextLesson = LESSONS.find((l) => l.order === lesson.order + 1 && l.available);
 
   return (
     <div className="space-y-5 pop-in">
@@ -77,6 +79,13 @@ export function RewardScreen({
       )}
 
       <div className="flex flex-wrap justify-center gap-3">
+        {nextLesson && (
+          <Link to="/lesson/$lessonId" params={{ lessonId: nextLesson.id }}>
+            <BigButton size="lg" variant="coral">
+              Next: {nextLesson.title} {nextLesson.emoji}
+            </BigButton>
+          </Link>
+        )}
         <BigButton size="lg" variant="accent" onClick={onReplay}>
           Play again
         </BigButton>
