@@ -408,6 +408,7 @@ export function StepRenderer(props: StepProps) {
     <div className="space-y-5">
       <NickoSays line={step.narration} small />
       {step.kind === "story" && <StoryStep {...props} />}
+      {step.kind === "choice" && <ChoiceStep {...props} />}
       {step.kind === "obstacle" && <ObstacleStep {...props} />}
       {step.kind === "quiz" && <QuizStep {...props} />}
       {step.kind === "keypad" && <KeypadStep {...props} />}
