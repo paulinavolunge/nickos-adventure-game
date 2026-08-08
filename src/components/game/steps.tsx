@@ -36,6 +36,66 @@ function StoryStep({ step, onDone }: StepProps) {
 
 const MOVES = [
   { key: "jump", label: "Jump", emoji: "⬆️" },
+] as const;
+
+function ChoiceStep({ step, onDone }: StepProps) {
+  const [picked, setPicked] = useState<number | null>(null);
+  const sfx = useSfx();
+  if (step.kind !== "choice") return null;
+
+  const chosen = picked === null ? null : step.options[picked];
+
+  return (
+    <Panel title={step.title}>
+      <p className="toy-card p-5 text-center text-base font-semibold">{step.scene}</p>
+      <p className="text-center text-lg font-black">{step.question}</p>
+      <div className="grid gap-3">
+        {step.options.map((opt, i) => (
+          <button
+            key={opt.label}
+            onClick={() => {
+              setPicked(i);
+              sfx(opt.best ? "heart" : "oops");
+            }}
+            className={cn(
+              "toy-card flex min-h-20 items-center gap-3 p-4 text-left text-base font-bold transition-transform active:scale-95",
+              picked === i && opt.best && "bg-accent text-accent-foreground",
+              picked === i && !opt.best && "bg-sunny text-sunny-foreground",
+            )}
+          >
+            <span aria-hidden className="text-3xl">
+              {opt.emoji}
+            </span>
+            {opt.label}
+          </button>
+        ))}
+      </div>
+      {chosen && (
+        <div className="toy-card pop-in space-y-3 p-4">
+          <p className="font-bold">{chosen.feedback}</p>
+          {chosen.hearts > 0 && (
+            <p className="flex items-center gap-2 font-black text-coral">
+              <Heart aria-hidden className="h-5 w-5 fill-coral heart-pop" />+{chosen.hearts} hearts for Nicko
+            </p>
+          )}
+          <div className="flex justify-center gap-3">
+            {!chosen.best && (
+              <BigButton variant="quiet" onClick={() => setPicked(null)}>
+                Try another
+              </BigButton>
+            )}
+            <BigButton variant={chosen.best ? "accent" : "primary"} onClick={() => onDone(chosen.best ? 0 : 1, chosen.hearts)}>
+              {chosen.best ? "Keep going" : "Next"}
+            </BigButton>
+          </div>
+        </div>
+      )}
+    </Panel>
+  );
+}
+
+const MOVES = [
+  { key: "jump", label: "Jump", emoji: "⬆️" },
   { key: "duck", label: "Duck", emoji: "⬇️" },
   { key: "walk", label: "Walk", emoji: "➡️" },
 ] as const;
