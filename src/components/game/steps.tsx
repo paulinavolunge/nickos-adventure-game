@@ -34,10 +34,6 @@ function StoryStep({ step, onDone }: StepProps) {
   );
 }
 
-const MOVES = [
-  { key: "jump", label: "Jump", emoji: "⬆️" },
-] as const;
-
 function ChoiceStep({ step, onDone }: StepProps) {
   const [picked, setPicked] = useState<number | null>(null);
   const sfx = useSfx();
