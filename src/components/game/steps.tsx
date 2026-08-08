@@ -44,6 +44,7 @@ function ObstacleStep({ step, onDone }: StepProps) {
   const [lane, setLane] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [shake, setShake] = useState(false);
+  const sfx = useSfx();
   if (step.kind !== "obstacle") return null;
 
   const current = step.lanes[lane];
@@ -52,9 +53,11 @@ function ObstacleStep({ step, onDone }: StepProps) {
   function choose(move: string) {
     if (step.kind !== "obstacle") return;
     if (move === current.safe) {
+      sfx("good");
       if (lane + 1 >= step.lanes.length) onDone(mistakes);
       else setLane(lane + 1);
     } else {
+      sfx("oops");
       setMistakes((m) => m + 1);
       setShake(true);
       setTimeout(() => setShake(false), 400);
@@ -106,6 +109,7 @@ function ObstacleStep({ step, onDone }: StepProps) {
 function QuizStep({ step, onDone }: StepProps) {
   const [picked, setPicked] = useState<number | null>(null);
   const [mistakes, setMistakes] = useState(0);
+  const sfx = useSfx();
   if (step.kind !== "quiz") return null;
 
   const chosen = picked === null ? null : step.options[picked];
@@ -119,6 +123,7 @@ function QuizStep({ step, onDone }: StepProps) {
             key={opt.label}
             onClick={() => {
               setPicked(i);
+              sfx(opt.correct ? "good" : "oops");
               if (!opt.correct) setMistakes((m) => m + 1);
             }}
             className={cn(
