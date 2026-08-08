@@ -1,11 +1,15 @@
 import { useMemo, useState } from "react";
-import { Check, X } from "lucide-react";
+import { Check, Heart, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Step } from "@/game/types";
+import { useSfx } from "@/game/useSfx";
 import { BigButton } from "./BigButton";
 import { NickoSays } from "./NickoSays";
 
-export type StepProps = { step: Step; onDone: (mistakes: number) => void };
+export type StepProps = {
+  step: Step;
+  onDone: (mistakes: number, bonusHearts?: number) => void;
+};
 
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
