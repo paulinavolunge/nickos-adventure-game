@@ -62,8 +62,9 @@ function WorldMap() {
         className="w-full rounded-4xl border-4 border-card object-cover shadow-[var(--shadow-float)]"
       />
 
-      <NickoSays line="Pick a spot on the map and let's learn something new together!" small />
+      <NickoSays line="Tap a lesson below and let's learn something new together!" small />
 
+      <h2 className="font-display text-xl font-black">Choose a lesson</h2>
       <ul className="space-y-3">
         {LESSONS.map((lesson) => {
           const progress = data.lessons[lesson.id];

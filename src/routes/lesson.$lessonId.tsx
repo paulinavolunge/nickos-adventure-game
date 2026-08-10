@@ -61,8 +61,18 @@ function AdventureNotFound() {
   );
 }
 
+function starsFor(mistakes: number) {
+  if (mistakes <= 1) return 3;
+  if (mistakes <= 4) return 2;
+  return 1;
+}
+
 function LessonPlayer() {
   const { lessonId } = Route.useParams();
+  return <LessonRunner key={lessonId} lessonId={lessonId} />;
+}
+
+function LessonRunner({ lessonId }: { lessonId: string }) {
   const lesson = getLesson(lessonId)!;
   const { data, update } = useSave();
   const sfx = useSfx();
@@ -73,7 +83,7 @@ function LessonPlayer() {
   const [finished, setFinished] = useState(false);
   const startedAt = useRef(Date.now());
 
-  const stars = mistakes === 0 ? 3 : mistakes <= 2 ? 2 : 1;
+  const stars = starsFor(mistakes);
 
   const handleDone = useCallback(
     (stepMistakes: number, bonusHearts = 0) => {
@@ -87,7 +97,7 @@ function LessonPlayer() {
       setTimeout(() => setBurst(null), 1400);
 
       if (index + 1 >= lesson.steps.length) {
-        const earned = nextMistakes === 0 ? 3 : nextMistakes <= 2 ? 2 : 1;
+        const earned = starsFor(nextMistakes);
         const finishBonus = 5;
         setHearts(totalHearts + finishBonus);
         update((save) =>
