@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Lock, Home, Sparkles } from "lucide-react";
+import { useMemo } from "react";
 import worldmap from "@/assets/worldmap.jpg";
 import { BigButton } from "@/components/game/BigButton";
 import { HeartMeter } from "@/components/game/HeartMeter";
@@ -32,8 +33,26 @@ const TINT: Record<string, string> = {
   sunny: "bg-sunny text-sunny-foreground",
 };
 
+const PIN_POSITIONS: Record<number, { left: string; top: string }> = {
+  1: { left: "18%", top: "22%" },
+  2: { left: "40%", top: "14%" },
+  3: { left: "62%", top: "20%" },
+  4: { left: "83%", top: "32%" },
+  5: { left: "72%", top: "48%" },
+  6: { left: "48%", top: "44%" },
+  7: { left: "22%", top: "50%" },
+  8: { left: "30%", top: "72%" },
+  9: { left: "55%", top: "80%" },
+  10: { left: "82%", top: "70%" },
+};
+
 function WorldMap() {
   const { data } = useSave();
+
+  const currentLessonOrder = useMemo(() => {
+    const next = LESSONS.find((l) => l.available && !data.lessons[l.id]?.stars);
+    return next?.order ?? null;
+  }, [data.lessons]);
 
   return (
     <main className="mx-auto w-full max-w-md space-y-5 px-4 py-6">
@@ -53,71 +72,143 @@ function WorldMap() {
 
       <HeartMeter hearts={data.hearts} />
 
-      <img
-        src={worldmap}
-        alt="Illustrated map of Nicko's neighborhood with a fire station, park, and crosswalk"
-        width={1536}
-        height={1024}
-        loading="lazy"
-        className="w-full rounded-4xl border-4 border-card object-cover shadow-[var(--shadow-float)]"
-      />
+      <div className="relative overflow-hidden rounded-4xl border-4 border-card shadow-[var(--shadow-float)]">
+        <img
+          src={worldmap}
+          alt="Illustrated map of Nicko's neighborhood with a fire station, park, and crosswalk"
+          width={1536}
+          height={1024}
+          loading="lazy"
+          className="block w-full"
+        />
+        <div className="pointer-events-none absolute inset-0">
+          {LESSONS.map((lesson) => {
+            const pos = PIN_POSITIONS[lesson.order];
+            if (!pos) return null;
+            const progress = data.lessons[lesson.id];
+            const stars = progress?.stars ?? 0;
+            const locked = !lesson.available;
+            const isCurrent = lesson.order === currentLessonOrder;
 
-      <NickoSays line="Tap a lesson below and let's learn something new together!" small />
+            const label = locked
+              ? `Level ${lesson.order}: ${lesson.title} — locked`
+              : `Level ${lesson.order}: ${lesson.title}${
+                  stars ? `, ${stars} of 3 stars` : ""
+                }${isCurrent ? " — next up" : ""}`;
 
-      <h2 className="font-display text-xl font-black">Choose a lesson</h2>
-      <ul className="space-y-3">
-        {LESSONS.map((lesson) => {
-          const progress = data.lessons[lesson.id];
-          const locked = !lesson.available;
-          const inner = (
-            <div
-              className={cn(
-                "toy-card grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 p-4 text-left",
-                locked && "opacity-60",
-              )}
-            >
-              <span
+            const pin = (
+              <div
                 aria-hidden
                 className={cn(
-                  "grid h-14 w-14 shrink-0 place-items-center rounded-2xl text-3xl",
-                  TINT[lesson.tint],
+                  "relative grid h-12 w-12 place-items-center rounded-full text-2xl shadow-[var(--shadow-toy)] sm:h-14 sm:w-14 sm:text-3xl",
+                  locked ? "bg-muted text-muted-foreground" : TINT[lesson.tint],
+                  isCurrent && "ring-4 ring-white",
                 )}
               >
-                {lesson.emoji}
-              </span>
-              <span className="min-w-0">
-                <span className="block truncate font-display text-xl font-black">
-                  {lesson.order}. {lesson.title}
+                {locked ? <Lock className="h-5 w-5 sm:h-6 sm:w-6" /> : <span>{lesson.emoji}</span>}
+                <span className="absolute -left-1 -top-1 grid h-5 w-5 place-items-center rounded-full bg-card text-[10px] font-black text-foreground shadow">
+                  {lesson.order}
                 </span>
-                <span className="block truncate text-sm font-bold text-muted-foreground">
-                  {locked ? "Coming soon" : lesson.lifeLesson}
-                </span>
-              </span>
-              {locked ? (
-                <Lock aria-hidden className="h-6 w-6 shrink-0 text-muted-foreground" />
-              ) : (
-                <Stars value={progress?.stars ?? 0} size={20} />
-              )}
-            </div>
-          );
+                {!locked && stars > 0 && (
+                  <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-card px-1.5 py-0.5 shadow">
+                    <Stars value={stars} size={10} />
+                  </span>
+                )}
+                {isCurrent && (
+                  <span className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-white px-2 py-0.5 text-[10px] font-black uppercase tracking-wide text-foreground shadow">
+                    You
+                  </span>
+                )}
+              </div>
+            );
 
-          return (
-            <li key={lesson.id}>
-              {locked ? (
-                <div aria-disabled>{inner}</div>
-              ) : (
-                <Link
-                  to="/lesson/$lessonId"
-                  params={{ lessonId: lesson.id }}
-                  className="block transition-transform active:scale-95"
+            return (
+              <div
+                key={lesson.id}
+                className={cn(
+                  "pointer-events-auto absolute -translate-x-1/2 -translate-y-1/2",
+                  isCurrent && "bob",
+                )}
+                style={{ left: pos.left, top: pos.top }}
+              >
+                {locked ? (
+                  <div role="img" aria-label={label}>
+                    {pin}
+                  </div>
+                ) : (
+                  <Link
+                    to="/lesson/$lessonId"
+                    params={{ lessonId: lesson.id }}
+                    aria-label={label}
+                    className="block transition-transform active:scale-90"
+                  >
+                    {pin}
+                  </Link>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <NickoSays line="Tap a pin to start an adventure. The glowing one is next!" small />
+
+      <section aria-label="All lessons" className="space-y-3">
+        <h2 className="font-display text-xl font-black">All lessons</h2>
+        <ul className="space-y-3">
+          {LESSONS.map((lesson) => {
+            const progress = data.lessons[lesson.id];
+            const locked = !lesson.available;
+            const inner = (
+              <div
+                className={cn(
+                  "toy-card grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 p-4 text-left",
+                  locked && "opacity-60",
+                )}
+              >
+                <span
+                  aria-hidden
+                  className={cn(
+                    "grid h-14 w-14 shrink-0 place-items-center rounded-2xl text-3xl",
+                    TINT[lesson.tint],
+                  )}
                 >
-                  {inner}
-                </Link>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+                  {lesson.emoji}
+                </span>
+                <span className="min-w-0">
+                  <span className="block truncate font-display text-xl font-black">
+                    {lesson.order}. {lesson.title}
+                  </span>
+                  <span className="block truncate text-sm font-bold text-muted-foreground">
+                    {locked ? "Coming soon" : lesson.lifeLesson}
+                  </span>
+                </span>
+                {locked ? (
+                  <Lock aria-hidden className="h-6 w-6 shrink-0 text-muted-foreground" />
+                ) : (
+                  <Stars value={progress?.stars ?? 0} size={20} />
+                )}
+              </div>
+            );
+
+            return (
+              <li key={lesson.id}>
+                {locked ? (
+                  <div aria-disabled>{inner}</div>
+                ) : (
+                  <Link
+                    to="/lesson/$lessonId"
+                    params={{ lessonId: lesson.id }}
+                    className="block transition-transform active:scale-95"
+                  >
+                    {inner}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </section>
     </main>
   );
 }
