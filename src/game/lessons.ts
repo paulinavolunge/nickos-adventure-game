@@ -595,6 +595,410 @@ const strangerSafety: Lesson = {
   ],
 };
 
+const kindnessCounts: Lesson = {
+  id: "kindness",
+  order: 4,
+  title: "Kindness Counts",
+  lifeLesson: "Little kind acts make big smiles.",
+  emoji: "💗",
+  tint: "grape",
+  available: true,
+  skills: [
+    "Noticing when someone needs help",
+    "Sharing and including others",
+    "Using kind words",
+    "Saying sorry and meaning it",
+    "Helping without being asked",
+  ],
+  badge: { id: "kind-heart", name: "Kind Heart", emoji: "💖" },
+  sticker: { id: "rainbow-heart", name: "Rainbow Heart", emoji: "🌈" },
+  outfit: { id: "kindness-cape", name: "Kindness Cape", emoji: "🦸" },
+  steps: [
+    {
+      id: "intro",
+      kind: "story",
+      title: "Ruby's Sad Day",
+      body: "Nicko spots his friend Ruby under the big tree. Her ears are droopy and her tail is not wagging. Something is wrong.",
+      narration:
+        "Look — Ruby looks sad. When a friend needs us, kindness is what helps. Come with me!",
+    },
+    {
+      id: "run-to-ruby",
+      kind: "obstacle",
+      title: "Bring Ruby the Ball",
+      goalLabel: "Reach Ruby",
+      narration:
+        "I have Ruby's favorite ball. Help me hop and duck across the playground to bring it to her!",
+      lanes: [
+        { prompt: "A jump rope stretched across the path!", safe: "jump" },
+        { prompt: "A low branch full of berries!", safe: "duck" },
+        { prompt: "A clear grassy path.", safe: "walk" },
+        { prompt: "A scooter left in the way!", safe: "jump" },
+      ],
+    },
+    {
+      id: "what-is-kind",
+      kind: "quiz",
+      title: "Which One Is Kind?",
+      question: "Which thing shows kindness?",
+      narration: "Kindness means we help and care. Which one shows kindness?",
+      options: [
+        {
+          label: "Sharing your snack with a friend",
+          emoji: "🍎",
+          correct: true,
+          feedback: "Yes! Sharing shows a friend that you care.",
+        },
+        {
+          label: "Laughing when someone falls",
+          emoji: "😆",
+          correct: false,
+          feedback: "Laughing when someone is hurt is not kind. Ask if they are okay instead.",
+        },
+        {
+          label: "Grabbing a toy you want",
+          emoji: "🧸",
+          correct: false,
+          feedback: "Grabbing is not kind. We ask, and we take turns.",
+        },
+        {
+          label: "Ignoring someone who is lonely",
+          emoji: "🙈",
+          correct: false,
+          feedback: "A lonely friend needs us to notice them. A simple hi can help a lot.",
+        },
+      ],
+    },
+    {
+      id: "new-friend",
+      kind: "choice",
+      title: "The New Kitten",
+      scene:
+        "A brand-new kitten named Momo is standing by the fence, all alone. She doesn't know anyone at the park yet.",
+      question: "What is the kind thing to do?",
+      narration: "Momo is new and looks nervous. What should I do?",
+      options: [
+        {
+          label: "Say hi and invite her to play",
+          emoji: "👋",
+          hearts: 5,
+          best: true,
+          feedback: "Perfect! One friendly hello can turn a whole day around.",
+        },
+        {
+          label: "Whisper about her with friends",
+          emoji: "🤫",
+          hearts: 0,
+          feedback: "Whispering can hurt feelings. If we talk about someone, we talk kindly.",
+        },
+        {
+          label: "Wait for her to come to us",
+          emoji: "⏳",
+          hearts: 0,
+          feedback:
+            "Waiting is easy for us, but scary for someone new. Being first to say hi is brave.",
+        },
+      ],
+    },
+    {
+      id: "say-sorry",
+      kind: "sequencing",
+      title: "How to Say Sorry",
+      narration:
+        "When we hurt someone by accident, saying sorry has four steps. Put them in order with me!",
+      items: [
+        { label: "Stop and go over to them", emoji: "✋" },
+        { label: "Look them in the eyes", emoji: "👀" },
+        { label: "Say 'I'm sorry'", emoji: "💬" },
+        { label: "Ask 'How can I help?'", emoji: "🤝" },
+      ],
+    },
+    {
+      id: "kind-match",
+      kind: "matching",
+      title: "Kind Acts Match",
+      narration: "Match each kind act with why it matters!",
+      pairs: [
+        {
+          left: "Sharing your snack",
+          leftEmoji: "🍎",
+          right: "A friend feels cared for",
+          rightEmoji: "🥰",
+        },
+        {
+          left: "Inviting someone to play",
+          leftEmoji: "🧩",
+          right: "Nobody is left out",
+          rightEmoji: "🎉",
+        },
+        {
+          left: "Saying 'thank you'",
+          leftEmoji: "🙏",
+          right: "Shows you noticed",
+          rightEmoji: "👀",
+        },
+      ],
+    },
+    {
+      id: "keypad",
+      kind: "keypad",
+      title: "Call a Friend",
+      code: "123",
+      hint: "Tap one, two, three to invite Ruby over",
+      narration: "Let's call Ruby to come play. A phone call can brighten a friend's whole day!",
+    },
+    {
+      id: "memory",
+      kind: "memory",
+      title: "Kindness Memory",
+      narration: "Find the matching kindness pairs. You've got this!",
+      cards: [
+        { label: "Hug", emoji: "🤗" },
+        { label: "Share", emoji: "🍎" },
+        { label: "Help", emoji: "🤝" },
+        { label: "Smile", emoji: "😊" },
+      ],
+    },
+    {
+      id: "spill",
+      kind: "choice",
+      title: "The Big Spill",
+      scene:
+        "In the lunchroom, a kid trips and their whole tray of food goes flying. Everyone stops and stares.",
+      question: "What should Nicko do?",
+      narration: "Uh oh, they dropped their lunch. What should I do?",
+      options: [
+        {
+          label: "Help pick it up and get more food",
+          emoji: "🍽️",
+          hearts: 5,
+          best: true,
+          feedback:
+            "That's it! Helping without being asked is one of the biggest kindnesses of all.",
+        },
+        {
+          label: "Point and laugh with everyone",
+          emoji: "😂",
+          hearts: 0,
+          feedback: "Laughing when someone feels bad only hurts more. Kind cats help.",
+        },
+        {
+          label: "Look away and keep eating",
+          emoji: "😶",
+          hearts: 0,
+          feedback: "Ignoring a friend in a hard moment misses the chance to help.",
+        },
+      ],
+    },
+    {
+      id: "outro",
+      kind: "story",
+      title: "Ruby Wagged Her Tail",
+      body: "Ruby's tail started wagging when Nicko sat next to her. Momo joined in too. All the little kind things Nicko did today made three friends smile.",
+      narration: "See? One kind moment leads to another. You are a real Kind Heart!",
+    },
+  ],
+};
+
+const bigFeelings: Lesson = {
+  id: "big-feelings",
+  order: 5,
+  title: "Big Feelings",
+  lifeLesson: "Name it to tame it.",
+  emoji: "😊",
+  tint: "sunny",
+  available: true,
+  skills: [
+    "Naming what you feel",
+    "Calm-down breathing",
+    "Asking for a hug",
+    "Using kind words when upset",
+    "Taking a break when you need one",
+  ],
+  badge: { id: "feelings-friend", name: "Feelings Friend", emoji: "🌟" },
+  sticker: { id: "mood-cloud", name: "Mood Cloud", emoji: "☁️" },
+  outfit: { id: "cozy-sweater", name: "Cozy Sweater", emoji: "🧥" },
+  steps: [
+    {
+      id: "intro",
+      kind: "story",
+      title: "A Big-Feelings Day",
+      body: "Nicko's tummy feels tight. His whiskers twitch. He doesn't know the name for the feeling — but it feels BIG. Today he learns that every feeling has a name.",
+      narration:
+        "My tummy feels weird. Have you ever felt like that? Let's learn what our big feelings are trying to tell us.",
+    },
+    {
+      id: "calm-corner",
+      kind: "obstacle",
+      title: "Walk to the Calm Corner",
+      goalLabel: "Reach the cozy chair",
+      narration:
+        "When feelings get big, I go to my calm corner. Help me pick the safe way there!",
+      lanes: [
+        { prompt: "Toys spread across the floor!", safe: "jump" },
+        { prompt: "A soft blanket hanging low!", safe: "duck" },
+        { prompt: "A clear path along the rug.", safe: "walk" },
+        { prompt: "A ball rolling toward you!", safe: "jump" },
+      ],
+    },
+    {
+      id: "name-it",
+      kind: "quiz",
+      title: "Name That Feeling",
+      question:
+        "A friend took Nicko's ball and won't give it back. What is Nicko probably feeling?",
+      narration: "My ball is gone and I don't like it. Which feeling matches best?",
+      options: [
+        {
+          label: "Frustrated",
+          emoji: "😤",
+          correct: true,
+          feedback: "Yes! Frustrated means 'this isn't going how I want.' Naming it helps!",
+        },
+        {
+          label: "Sleepy",
+          emoji: "😴",
+          correct: false,
+          feedback: "Sleepy is a body feeling. This one is about wanting the ball back.",
+        },
+        {
+          label: "Excited",
+          emoji: "🤩",
+          correct: false,
+          feedback: "Excited feels fun and bouncy. Losing a ball doesn't feel like that.",
+        },
+        {
+          label: "Hungry",
+          emoji: "🍽️",
+          correct: false,
+          feedback: "Hungry is a tummy feeling. This one is a heart feeling.",
+        },
+      ],
+    },
+    {
+      id: "broken-toy",
+      kind: "choice",
+      title: "The Broken Toy",
+      scene:
+        "Nicko's favorite toy just snapped in half. His chest feels hot and his eyes are watering. He wants to throw something.",
+      question: "What is the safe, kind thing to do?",
+      narration: "I'm SO upset right now. What should I do with this big feeling?",
+      options: [
+        {
+          label: "Take three big breaths and ask for a hug",
+          emoji: "🌬️",
+          hearts: 5,
+          best: true,
+          feedback:
+            "Yes! Big breaths tell your body 'we are safe.' Then a hug helps the feeling shrink.",
+        },
+        {
+          label: "Throw something across the room",
+          emoji: "💥",
+          hearts: 0,
+          feedback:
+            "Throwing doesn't fix it and can hurt someone. Big feelings need calm, not crashes.",
+        },
+        {
+          label: "Yell at whoever is nearby",
+          emoji: "📣",
+          hearts: 0,
+          feedback: "Yelling passes the hurt to someone else. Our feelings are ours to feel — kindly.",
+        },
+      ],
+    },
+    {
+      id: "breathing",
+      kind: "sequencing",
+      title: "Calm-Down Breathing",
+      narration:
+        "Four steps for when feelings feel too big. Put them in order and breathe with me!",
+      items: [
+        { label: "Stop and put a paw on your chest", emoji: "✋" },
+        { label: "Breathe in slow (count to four)", emoji: "🌬️" },
+        { label: "Hold for a moment", emoji: "🫁" },
+        { label: "Breathe out even slower", emoji: "😌" },
+      ],
+    },
+    {
+      id: "feeling-match",
+      kind: "matching",
+      title: "What Helps?",
+      narration: "Every big feeling has something that helps. Match them!",
+      pairs: [
+        { left: "Feeling sad", leftEmoji: "😢", right: "Ask for a hug", rightEmoji: "🤗" },
+        { left: "Feeling mad", leftEmoji: "😠", right: "Take deep breaths", rightEmoji: "🌬️" },
+        {
+          left: "Feeling scared",
+          leftEmoji: "😨",
+          right: "Tell a grown-up",
+          rightEmoji: "🧑‍🦳",
+        },
+      ],
+    },
+    {
+      id: "keypad",
+      kind: "keypad",
+      title: "Call a Trusted Grown-Up",
+      code: "444",
+      hint: "Tap four, four, four to reach Mom",
+      narration: "When a feeling is too big to hold alone, a grown-up can help. Let's call Mom!",
+    },
+    {
+      id: "memory",
+      kind: "memory",
+      title: "Feelings Memory",
+      narration: "Match each feeling with its pair. Take your time — all feelings are okay!",
+      cards: [
+        { label: "Happy", emoji: "😊" },
+        { label: "Sad", emoji: "😢" },
+        { label: "Mad", emoji: "😠" },
+        { label: "Calm", emoji: "😌" },
+      ],
+    },
+    {
+      id: "grumpy-morning",
+      kind: "choice",
+      title: "The Grumpy Morning",
+      scene:
+        "Nicko woke up on the wrong side of the bed. Everything feels annoying. Grandpa asks if he wants breakfast.",
+      question: "What is the best thing to say?",
+      narration: "I feel grumpy for no reason. What should I say to Grandpa?",
+      options: [
+        {
+          label: "'I feel grumpy. I need a minute.'",
+          emoji: "💬",
+          hearts: 5,
+          best: true,
+          feedback:
+            "Perfect! Naming the feeling and asking for space is the bravest thing you can do.",
+        },
+        {
+          label: "Grumble and stomp off",
+          emoji: "😤",
+          hearts: 0,
+          feedback: "Stomping doesn't tell Grandpa what you need. Words work better than stomps.",
+        },
+        {
+          label: "Snap at Grandpa about breakfast",
+          emoji: "🗯️",
+          hearts: 0,
+          feedback:
+            "Grandpa didn't cause the grumpy feeling. He is your helper, not your target.",
+        },
+      ],
+    },
+    {
+      id: "outro",
+      kind: "story",
+      title: "The Feeling Shrank",
+      body: "After a hug from Grandpa and three big breaths, Nicko's big feeling turned into a little one. He learned that feelings are like clouds — they roll in, and they roll right back out.",
+      narration:
+        "You did it! When we name a feeling, we take away its power. You are a real Feelings Friend!",
+    },
+  ],
+};
+
 function upcoming(
   id: string,
   order: number,
@@ -625,8 +1029,8 @@ export const LESSONS: Lesson[] = [
   call911,
   fireSafety,
   strangerSafety,
-  upcoming("kindness", 4, "Kindness Counts", "Little kind acts make big smiles.", "💗", "grape", ["Kind Heart", "💖"], ["Rainbow Heart", "🌈"], ["Noticing others' feelings", "Sharing and including", "Kind words"]),
-  upcoming("big-feelings", 5, "Big Feelings", "Name it to tame it.", "😊", "sunny", ["Feelings Friend", "🌟"], ["Mood Cloud", "☁️"], ["Naming emotions", "Calm-down breathing", "Asking for a hug"]),
+  kindnessCounts,
+  bigFeelings,
   upcoming("teamwork", 6, "Teamwork Time", "Together is stronger.", "🧩", "primary", ["Team Captain", "🏅"], ["Puzzle Piece", "🧩"], ["Taking turns", "Asking for help", "Cheering others on"]),
   upcoming("healthy-habits", 7, "Healthy Habits", "Strong bodies, happy days.", "🥕", "accent", ["Habit Hero", "🥕"], ["Toothbrush", "🪥"], ["Handwashing", "Bedtime routine", "Healthy snacks"]),
   upcoming("animal-care", 8, "Animal Care", "Gentle hands, happy pets.", "🐾", "grape", ["Pet Pal", "🐾"], ["Paw Print", "🐕"], ["Gentle petting", "Food and water", "Reading animal body language"]),
