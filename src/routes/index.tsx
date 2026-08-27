@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Play, Map as MapIcon, ShieldCheck, Sparkles } from "lucide-react";
-import nicko from "@/assets/nicko.png";
+import nickoAsset from "@/assets/nicko.png.asset.json";
+const nicko = nickoAsset.url;
 import { BigButton } from "@/components/game/BigButton";
 import { HeartMeter } from "@/components/game/HeartMeter";
 import { Stars } from "@/components/game/Stars";

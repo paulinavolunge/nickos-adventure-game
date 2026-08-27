@@ -1,5 +1,6 @@
 import { Volume2 } from "lucide-react";
-import nicko from "@/assets/nicko.png";
+import nickoAsset from "@/assets/nicko.png.asset.json";
+const nicko = nickoAsset.url;
 import { useNarration } from "@/game/useNarration";
 import { BigButton } from "./BigButton";
 
