@@ -40,7 +40,7 @@ function TitleScreen() {
         width={1024}
         height={1024}
         fetchPriority="high"
-        className="w-56 max-w-full object-contain bob drop-shadow-xl"
+        className="w-56 max-w-full object-contain bob feather-round drop-shadow-xl"
       />
       <div>
         <h1 className="text-5xl font-black leading-tight">Nicko&apos;s Adventures</h1>

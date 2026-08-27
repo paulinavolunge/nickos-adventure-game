@@ -194,6 +194,11 @@
   animation: bob 3s ease-in-out infinite;
 }
 
+@utility feather-round {
+  -webkit-mask-image: radial-gradient(circle at 50% 55%, #000 58%, transparent 82%);
+  mask-image: radial-gradient(circle at 50% 55%, #000 58%, transparent 82%);
+}
+
 @keyframes pop-in {
   from { opacity: 0; transform: scale(0.85) translateY(12px); }
   to { opacity: 1; transform: none; }

@@ -62,7 +62,7 @@ function RewardsRoom() {
           width={1024}
           height={1024}
           loading="lazy"
-          className="mx-auto w-40 object-contain bob"
+          className="mx-auto w-40 object-contain bob feather-round"
         />
         <p className="font-display text-xl font-black">
           {level.mood} {level.line}
