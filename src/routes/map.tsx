@@ -16,10 +16,14 @@ export const Route = createFileRoute("/map")({
       { title: "World Map — Nicko's Adventures" },
       {
         name: "description",
-        content: "Choose a lesson on Nicko's neighborhood map: calling 911, kindness, stranger safety, and more.",
+        content:
+          "Choose a lesson on Nicko's neighborhood map: calling 911, kindness, stranger safety, and more.",
       },
       { property: "og:title", content: "World Map — Nicko's Adventures" },
-      { property: "og:description", content: "Pick your next life-lesson adventure with Nicko the cat." },
+      {
+        property: "og:description",
+        content: "Pick your next life-lesson adventure with Nicko the cat.",
+      },
     ],
   }),
   component: WorldMap,
@@ -148,6 +152,23 @@ function WorldMap() {
               </div>
             );
           })}
+          <div
+            className="pointer-events-auto absolute -translate-x-1/2 -translate-y-1/2"
+            style={{ left: "8%", top: "85%" }}
+          >
+            <Link
+              to="/rewards"
+              aria-label="Visit Nicko's house"
+              className="block transition-transform active:scale-90"
+            >
+              <div
+                aria-hidden
+                className="grid h-12 w-12 place-items-center rounded-full bg-grape text-2xl text-grape-foreground shadow-[var(--shadow-toy)] sm:h-14 sm:w-14 sm:text-3xl"
+              >
+                🏠
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
 

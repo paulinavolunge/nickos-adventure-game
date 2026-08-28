@@ -70,7 +70,10 @@ function RewardsRoom() {
       </div>
 
       <HeartMeter hearts={data.hearts} />
-      <NickoSays line="Look at everything we collected together! Every heart makes my room cozier." small />
+      <NickoSays
+        line="Look at everything we collected together! Every heart makes my room cozier."
+        small
+      />
 
       <Section title="Friendship unlocks">
         <div className="grid grid-cols-2 gap-3">
@@ -79,10 +82,7 @@ function RewardsRoom() {
             return (
               <div
                 key={m.id}
-                className={cn(
-                  "toy-card flex items-center gap-3 p-3",
-                  !open && "opacity-60",
-                )}
+                className={cn("toy-card flex items-center gap-3 p-3", !open && "opacity-60")}
               >
                 <span aria-hidden className="text-3xl">
                   {open ? m.emoji : "🔒"}
@@ -108,7 +108,11 @@ function RewardsRoom() {
 
       <Section title="Stickers">
         <Collection
-          items={stickers.map((l) => ({ id: l.sticker.id, emoji: l.sticker.emoji, name: l.sticker.name }))}
+          items={stickers.map((l) => ({
+            id: l.sticker.id,
+            emoji: l.sticker.emoji,
+            name: l.sticker.name,
+          }))}
           empty="Stickers appear here after each adventure."
         />
       </Section>

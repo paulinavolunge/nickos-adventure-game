@@ -80,17 +80,34 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Nicko's Adventures — Life Lessons Game for Kids 4-8" },
       {
         name: "description",
-        content: "Play as Nicko the tabby cat and learn real-life skills like calling 911, kindness, and street safety through friendly mini-games. No ads.",
+        content:
+          "Play as Nicko the tabby cat and learn real-life skills like calling 911, kindness, and street safety through friendly mini-games. No ads.",
       },
       { property: "og:title", content: "Nicko's Adventures — Life Lessons Game for Kids 4-8" },
-      { property: "og:description", content: "Play as Nicko the tabby cat and learn real-life skills like calling 911, kindness, and street safety through friendly mini-games. No ads." },
+      {
+        property: "og:description",
+        content:
+          "Play as Nicko the tabby cat and learn real-life skills like calling 911, kindness, and street safety through friendly mini-games. No ads.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Nicko's Adventures — Life Lessons Game for Kids 4-8" },
-      { name: "twitter:description", content: "Play as Nicko the tabby cat and learn real-life skills like calling 911, kindness, and street safety through friendly mini-games. No ads." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/86155ad9-67a7-41ff-82a6-445efe24574c/id-preview-fbba4cea--9ab973df-be6d-4c3d-9bbe-31595612ad7f.lovable.app-1785380209091.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/86155ad9-67a7-41ff-82a6-445efe24574c/id-preview-fbba4cea--9ab973df-be6d-4c3d-9bbe-31595612ad7f.lovable.app-1785380209091.png" },
+      {
+        name: "twitter:description",
+        content:
+          "Play as Nicko the tabby cat and learn real-life skills like calling 911, kindness, and street safety through friendly mini-games. No ads.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/86155ad9-67a7-41ff-82a6-445efe24574c/id-preview-fbba4cea--9ab973df-be6d-4c3d-9bbe-31595612ad7f.lovable.app-1785380209091.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/86155ad9-67a7-41ff-82a6-445efe24574c/id-preview-fbba4cea--9ab973df-be6d-4c3d-9bbe-31595612ad7f.lovable.app-1785380209091.png",
+      },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

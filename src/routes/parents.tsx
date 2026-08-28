@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Home } from "lucide-react";
+import { useState } from "react";
 import { BigButton } from "@/components/game/BigButton";
 import { Stars } from "@/components/game/Stars";
 import { LESSONS } from "@/game/lessons";
@@ -12,16 +13,73 @@ export const Route = createFileRoute("/parents")({
       { title: "Parent Dashboard — Nicko's Adventures" },
       {
         name: "description",
-        content: "See which life lessons your child completed, time played, and control narration, text size, and saved progress.",
+        content:
+          "See which life lessons your child completed, time played, and control narration, text size, and saved progress.",
       },
       { property: "og:title", content: "Parent Dashboard — Nicko's Adventures" },
-      { property: "og:description", content: "Track progress and adjust accessibility settings for Nicko's Adventures." },
+      {
+        property: "og:description",
+        content: "Track progress and adjust accessibility settings for Nicko's Adventures.",
+      },
     ],
   }),
   component: ParentDashboard,
 });
 
-const SETTINGS: Array<{ key: "narration" | "sound" | "bigText" | "reducedMotion"; label: string; hint: string }> = [
+function ParentGate({ children }: { children: React.ReactNode }) {
+  const [a] = useState(() => 1 + Math.floor(Math.random() * 9));
+  const [b] = useState(() => 1 + Math.floor(Math.random() * 9));
+  const [input, setInput] = useState("");
+  const [unlocked, setUnlocked] = useState(false);
+  const [tryAgain, setTryAgain] = useState(false);
+
+  if (unlocked) return <>{children}</>;
+
+  function check(e: React.FormEvent) {
+    e.preventDefault();
+    if (Number(input) === a + b) {
+      setUnlocked(true);
+    } else {
+      setTryAgain(true);
+      setInput("");
+    }
+  }
+
+  return (
+    <main className="mx-auto grid min-h-dvh w-full max-w-md place-items-center px-5 text-center">
+      <div className="toy-card w-full space-y-4 p-6">
+        <p className="font-display text-2xl font-black">Parents: quick check</p>
+        <p className="text-lg font-bold">
+          What is {a} + {b}?
+        </p>
+        <form onSubmit={check} className="space-y-3">
+          <input
+            type="number"
+            inputMode="numeric"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            aria-label="Your answer"
+            className="w-full rounded-2xl border-4 border-border p-3 text-center text-2xl font-black"
+          />
+          <BigButton type="submit" size="lg" className="w-full">
+            Continue
+          </BigButton>
+        </form>
+        {tryAgain && (
+          <p className="text-sm font-bold text-muted-foreground">
+            Not quite — give it another try.
+          </p>
+        )}
+      </div>
+    </main>
+  );
+}
+
+const SETTINGS: Array<{
+  key: "narration" | "sound" | "bigText" | "reducedMotion";
+  label: string;
+  hint: string;
+}> = [
   { key: "narration", label: "Voice narration", hint: "Nicko reads instructions aloud" },
   { key: "sound", label: "Sound effects", hint: "Cheers and chimes" },
   { key: "bigText", label: "Extra large text", hint: "Bigger words across the game" },
@@ -29,11 +87,21 @@ const SETTINGS: Array<{ key: "narration" | "sound" | "bigText" | "reducedMotion"
 ];
 
 function ParentDashboard() {
+  return (
+    <ParentGate>
+      <DashboardContent />
+    </ParentGate>
+  );
+}
+
+function DashboardContent() {
   const { data, update } = useSave();
   const played = Object.values(data.lessons).reduce((s, l) => s + l.secondsPlayed, 0);
 
   return (
-    <main className={`mx-auto w-full max-w-md space-y-5 px-4 py-6 ${data.settings.bigText ? "text-lg" : ""}`}>
+    <main
+      className={`mx-auto w-full max-w-md space-y-5 px-4 py-6 ${data.settings.bigText ? "text-lg" : ""}`}
+    >
       <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
         <h1 className="truncate text-3xl font-black">Parent Dashboard</h1>
         <Link to="/" aria-label="Back to title screen">
@@ -83,24 +151,35 @@ function ParentDashboard() {
         <ul className="space-y-2">
           {LESSONS.map((lesson) => {
             const p = data.lessons[lesson.id];
+            const inProgress = data.inProgress[lesson.id];
+            const totalSteps = lesson.steps.length;
             return (
-              <li
-                key={lesson.id}
-                className="toy-card grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 p-3"
-              >
-                <div className="min-w-0">
-                  <p className="truncate font-bold">
-                    {lesson.emoji} {lesson.title}
-                  </p>
-                  <p className="truncate text-sm text-muted-foreground">
-                    {p
-                      ? `Completed ${new Date(p.completedAt).toLocaleDateString()} · ${p.attempts} play${p.attempts > 1 ? "s" : ""}`
-                      : lesson.available
-                        ? "Not started"
-                        : "Coming soon"}
-                  </p>
+              <li key={lesson.id} className="toy-card space-y-2 p-3">
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+                  <div className="min-w-0">
+                    <p className="truncate font-bold">
+                      {lesson.emoji} {lesson.title}
+                    </p>
+                    <p className="truncate text-sm text-muted-foreground">
+                      {p
+                        ? `Completed ${new Date(p.completedAt).toLocaleDateString()} · ${p.attempts} play${p.attempts > 1 ? "s" : ""}`
+                        : inProgress
+                          ? `In progress · step ${inProgress.stepIndex + 1} of ${totalSteps}`
+                          : lesson.available
+                            ? "Not started"
+                            : "Coming soon"}
+                    </p>
+                  </div>
+                  <Stars value={p?.stars ?? 0} size={18} />
                 </div>
-                <Stars value={p?.stars ?? 0} size={18} />
+                {p && (
+                  <div className="rounded-2xl bg-sunny/20 p-3">
+                    <p className="text-xs font-black uppercase tracking-wide text-muted-foreground">
+                      🌙 Try tonight
+                    </p>
+                    <p className="text-sm font-semibold">{lesson.tryTonight}</p>
+                  </div>
+                )}
               </li>
             );
           })}
@@ -136,7 +215,8 @@ function ParentDashboard() {
       <section className="space-y-3">
         <h2 className="text-xl font-black">Privacy</h2>
         <p className="toy-card p-4 text-sm font-semibold">
-          No ads, no purchases, no accounts. Progress is saved only on this device and never leaves it.
+          No ads, no purchases, no accounts. Progress is saved only on this device and never leaves
+          it.
         </p>
         <BigButton
           variant="quiet"

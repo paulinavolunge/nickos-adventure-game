@@ -14,7 +14,11 @@ export function NickoSays({ line, small }: { line: string; small?: boolean }) {
         alt="Nicko the gray tabby cat"
         width={1024}
         height={1024}
-        className={small ? "h-16 w-16 shrink-0 object-contain bob feather-round" : "h-24 w-24 shrink-0 object-contain bob feather-round"}
+        className={
+          small
+            ? "h-16 w-16 shrink-0 object-contain bob feather-round"
+            : "h-24 w-24 shrink-0 object-contain bob feather-round"
+        }
       />
       <div className="toy-card relative min-w-0 p-4">
         <p aria-live="polite" className={small ? "text-base font-bold" : "text-lg font-bold"}>

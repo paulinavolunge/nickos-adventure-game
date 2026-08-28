@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Check, Heart, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Step } from "@/game/types";
+import { FORGIVING_ON_WRONG_GUESS } from "@/game/nickoLines";
 import { useSfx } from "@/game/useSfx";
 import { BigButton } from "./BigButton";
 import { NickoSays } from "./NickoSays";
@@ -71,7 +72,8 @@ function ChoiceStep({ step, onDone }: StepProps) {
           <p className="font-bold">{chosen.feedback}</p>
           {chosen.hearts > 0 && (
             <p className="flex items-center gap-2 font-black text-coral">
-              <Heart aria-hidden className="h-5 w-5 fill-coral heart-pop" />+{chosen.hearts} hearts for Nicko
+              <Heart aria-hidden className="h-5 w-5 fill-coral heart-pop" />+{chosen.hearts} hearts
+              for Nicko
             </p>
           )}
           <div className="flex justify-center gap-3">
@@ -80,7 +82,10 @@ function ChoiceStep({ step, onDone }: StepProps) {
                 Try another
               </BigButton>
             )}
-            <BigButton variant={chosen.best ? "accent" : "primary"} onClick={() => onDone(chosen.best ? 0 : 1, chosen.hearts)}>
+            <BigButton
+              variant={chosen.best ? "accent" : "primary"}
+              onClick={() => onDone(chosen.best ? 0 : 1, chosen.hearts)}
+            >
               {chosen.best ? "Keep going" : "Next"}
             </BigButton>
           </div>
@@ -100,6 +105,7 @@ function ObstacleStep({ step, onDone }: StepProps) {
   const [lane, setLane] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [shake, setShake] = useState(false);
+  const [showOops, setShowOops] = useState(false);
   const sfx = useSfx();
   if (step.kind !== "obstacle") return null;
 
@@ -116,7 +122,9 @@ function ObstacleStep({ step, onDone }: StepProps) {
       sfx("oops");
       setMistakes((m) => m + 1);
       setShake(true);
+      setShowOops(true);
       setTimeout(() => setShake(false), 400);
+      setTimeout(() => setShowOops(false), 1800);
     }
   }
 
@@ -155,6 +163,11 @@ function ObstacleStep({ step, onDone }: StepProps) {
           </BigButton>
         ))}
       </div>
+      {showOops && (
+        <p className="pop-in text-center text-sm font-semibold text-muted-foreground">
+          {FORGIVING_ON_WRONG_GUESS}
+        </p>
+      )}
       <p className="text-center text-sm font-bold text-muted-foreground">
         Obstacle {lane + 1} of {step.lanes.length} — {step.goalLabel}
       </p>
@@ -202,7 +215,14 @@ function QuizStep({ step, onDone }: StepProps) {
           ) : (
             <X aria-hidden className="h-8 w-8 shrink-0 text-coral" />
           )}
-          <p className="font-bold">{chosen.feedback}</p>
+          <div>
+            {!chosen.correct && (
+              <p className="text-sm font-semibold text-muted-foreground">
+                {FORGIVING_ON_WRONG_GUESS}
+              </p>
+            )}
+            <p className="font-bold">{chosen.feedback}</p>
+          </div>
         </div>
       )}
       {chosen?.correct && (
@@ -237,7 +257,10 @@ function KeypadStep({ step, onDone }: StepProps) {
     <Panel title={step.title}>
       <div className="toy-card mx-auto w-full max-w-xs p-5 text-center">
         <p className="mb-3 text-sm font-bold text-muted-foreground">{step.hint}</p>
-        <p aria-live="polite" className="mb-4 h-14 rounded-2xl bg-muted text-4xl font-black leading-[3.5rem] tracking-[0.4em]">
+        <p
+          aria-live="polite"
+          className="mb-4 h-14 rounded-2xl bg-muted text-4xl font-black leading-[3.5rem] tracking-[0.4em]"
+        >
           {entry || "•••"}
         </p>
         <div className="grid grid-cols-3 gap-2">
@@ -402,10 +425,12 @@ function MemoryStep({ step, onDone }: StepProps) {
   const deck = useMemo(
     () =>
       step.kind === "memory"
-        ? shuffle(step.cards.flatMap((c, i) => [
-            { key: `${i}-a`, ...c },
-            { key: `${i}-b`, ...c },
-          ]))
+        ? shuffle(
+            step.cards.flatMap((c, i) => [
+              { key: `${i}-a`, ...c },
+              { key: `${i}-b`, ...c },
+            ]),
+          )
         : [],
     [step],
   );
@@ -458,6 +483,76 @@ function MemoryStep({ step, onDone }: StepProps) {
   );
 }
 
+function MasteryCheckStep({ step, onDone }: StepProps) {
+  const [qIndex, setQIndex] = useState(0);
+  const [picked, setPicked] = useState<number | null>(null);
+  const [wrongCount, setWrongCount] = useState(0);
+  const sfx = useSfx();
+  if (step.kind !== "mastery") return null;
+
+  const questions = step.questions;
+  const question = questions[qIndex];
+
+  function pick(i: number) {
+    if (picked !== null) return;
+    setPicked(i);
+    const correct = question.options[i].correct;
+    sfx(correct ? "good" : "oops");
+    const nextWrong = correct ? wrongCount : wrongCount + 1;
+    if (!correct) setWrongCount(nextWrong);
+    setTimeout(() => {
+      if (qIndex + 1 >= questions.length) {
+        onDone(nextWrong);
+      } else {
+        setQIndex((i) => i + 1);
+        setPicked(null);
+      }
+    }, 800);
+  }
+
+  return (
+    <Panel title={step.title}>
+      <p className="text-center text-xs font-black uppercase tracking-wide text-muted-foreground">
+        Question {qIndex + 1} of {questions.length}
+      </p>
+      {question.emoji && (
+        <p aria-hidden className="text-center text-5xl">
+          {question.emoji}
+        </p>
+      )}
+      <p className="text-center text-lg font-bold">{question.prompt}</p>
+      <div className="grid grid-cols-2 gap-3">
+        {question.options.map((opt, i) => (
+          <button
+            key={opt.label}
+            disabled={picked !== null}
+            onClick={() => pick(i)}
+            className={cn(
+              "toy-card flex min-h-32 flex-col items-center justify-center gap-2 p-3 text-center text-base font-bold transition-transform active:scale-95",
+              picked === i && opt.correct && "bg-accent text-accent-foreground",
+              picked === i && !opt.correct && "bg-coral text-coral-foreground",
+            )}
+          >
+            <span aria-hidden className="text-4xl">
+              {opt.emoji}
+            </span>
+            {opt.label}
+          </button>
+        ))}
+      </div>
+      {picked !== null && (
+        <div className="pop-in flex justify-center">
+          {question.options[picked].correct ? (
+            <Check aria-hidden className="h-10 w-10 text-accent" />
+          ) : (
+            <X aria-hidden className="h-10 w-10 text-coral" />
+          )}
+        </div>
+      )}
+    </Panel>
+  );
+}
+
 export function StepRenderer(props: StepProps) {
   const { step } = props;
   return (
@@ -471,6 +566,7 @@ export function StepRenderer(props: StepProps) {
       {step.kind === "matching" && <MatchingStep {...props} />}
       {step.kind === "sequencing" && <SequencingStep {...props} />}
       {step.kind === "memory" && <MemoryStep {...props} />}
+      {step.kind === "mastery" && <MasteryCheckStep {...props} />}
     </div>
   );
 }

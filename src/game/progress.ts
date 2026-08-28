@@ -7,9 +7,12 @@ export type LessonProgress = {
   secondsPlayed: number;
 };
 
+export type InProgressLesson = { stepIndex: number; mistakes: number; hearts: number };
+
 export type SaveData = {
   playerName: string;
   lessons: Record<string, LessonProgress>;
+  inProgress: Record<string, InProgressLesson>;
   badges: string[];
   stickers: string[];
   outfits: string[];
@@ -27,6 +30,7 @@ const KEY = "nicko-adventures-save-v1";
 const EMPTY: SaveData = {
   playerName: "Friend",
   lessons: {},
+  inProgress: {},
   badges: [],
   stickers: [],
   outfits: [],
@@ -97,6 +101,7 @@ export function completeLesson(
   },
 ): SaveData {
   const prev = save.lessons[opts.lessonId];
+  const { [opts.lessonId]: _finishedInProgress, ...remainingInProgress } = save.inProgress ?? {};
   return {
     ...save,
     hearts: (save.hearts ?? 0) + (opts.hearts ?? 0),
@@ -109,11 +114,10 @@ export function completeLesson(
         secondsPlayed: (prev?.secondsPlayed ?? 0) + opts.secondsPlayed,
       },
     },
+    inProgress: remainingInProgress,
     badges: Array.from(new Set([...save.badges, opts.badgeId])),
     stickers: Array.from(new Set([...save.stickers, opts.stickerId])),
-    outfits: opts.outfitId
-      ? Array.from(new Set([...save.outfits, opts.outfitId]))
-      : save.outfits,
+    outfits: opts.outfitId ? Array.from(new Set([...save.outfits, opts.outfitId])) : save.outfits,
   };
 }
 

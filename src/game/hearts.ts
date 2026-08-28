@@ -9,13 +9,62 @@ export type HeartReward = {
 
 /** Milestones unlock automatically as the friendship meter grows. */
 export const HEART_MILESTONES: HeartReward[] = [
-  { id: "first-friend", hearts: 10, kind: "badge", name: "First Friend", emoji: "💛", blurb: "Nicko feels safe with you." },
-  { id: "cozy-rug", hearts: 20, kind: "decoration", name: "Cozy Rug", emoji: "🧶", blurb: "A soft rug for Nicko's room." },
-  { id: "explorer-cape", hearts: 35, kind: "outfit", name: "Explorer Cape", emoji: "🧣", blurb: "Nicko can dress like a hero." },
-  { id: "sunny-window", hearts: 50, kind: "decoration", name: "Sunny Window", emoji: "🪟", blurb: "Nicko's favorite napping spot." },
-  { id: "story-campfire", hearts: 70, kind: "story", name: "Campfire Story", emoji: "🔥", blurb: "Nicko tells you about his bravest day." },
-  { id: "park-area", hearts: 90, kind: "area", name: "Sunny Park", emoji: "🌳", blurb: "A brand new place to explore." },
-  { id: "golden-trophy", hearts: 120, kind: "trophy", name: "Golden Heart Trophy", emoji: "🏆", blurb: "Nicko's happiest day ever." },
+  {
+    id: "first-friend",
+    hearts: 10,
+    kind: "badge",
+    name: "First Friend",
+    emoji: "💛",
+    blurb: "Nicko feels safe with you.",
+  },
+  {
+    id: "cozy-rug",
+    hearts: 20,
+    kind: "decoration",
+    name: "Cozy Rug",
+    emoji: "🧶",
+    blurb: "A soft rug for Nicko's room.",
+  },
+  {
+    id: "explorer-cape",
+    hearts: 35,
+    kind: "outfit",
+    name: "Explorer Cape",
+    emoji: "🧣",
+    blurb: "Nicko can dress like a hero.",
+  },
+  {
+    id: "sunny-window",
+    hearts: 50,
+    kind: "decoration",
+    name: "Sunny Window",
+    emoji: "🪟",
+    blurb: "Nicko's favorite napping spot.",
+  },
+  {
+    id: "story-campfire",
+    hearts: 70,
+    kind: "story",
+    name: "Campfire Story",
+    emoji: "🔥",
+    blurb: "Nicko tells you about his bravest day.",
+  },
+  {
+    id: "park-area",
+    hearts: 90,
+    kind: "area",
+    name: "Sunny Park",
+    emoji: "🌳",
+    blurb: "A brand new place to explore.",
+  },
+  {
+    id: "golden-trophy",
+    hearts: 120,
+    kind: "trophy",
+    name: "Golden Heart Trophy",
+    emoji: "🏆",
+    blurb: "Nicko's happiest day ever.",
+  },
 ];
 
 export const HEART_LEVELS = [

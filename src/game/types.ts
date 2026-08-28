@@ -47,6 +47,15 @@ export type Step =
         best?: boolean;
         feedback: string;
       }>;
+    })
+  | (StepBase & {
+      kind: "mastery";
+      title: string;
+      questions: Array<{
+        prompt: string;
+        emoji?: string;
+        options: Array<{ label: string; emoji: string; correct: boolean }>;
+      }>;
     });
 
 export type Lesson = {
@@ -61,5 +70,6 @@ export type Lesson = {
   badge: { id: string; name: string; emoji: string };
   sticker: { id: string; name: string; emoji: string };
   outfit?: { id: string; name: string; emoji: string };
+  tryTonight: string;
   steps: Step[];
 };

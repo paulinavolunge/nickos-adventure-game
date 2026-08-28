@@ -17,7 +17,9 @@ export const Route = createFileRoute("/lesson/$lessonId")({
     return { title: lesson.title, lifeLesson: lesson.lifeLesson };
   },
   head: ({ loaderData }) => {
-    const title = loaderData ? `${loaderData.title} — Nicko's Adventures` : "Lesson — Nicko's Adventures";
+    const title = loaderData
+      ? `${loaderData.title} — Nicko's Adventures`
+      : "Lesson — Nicko's Adventures";
     const description = loaderData?.lifeLesson ?? "A life-lesson adventure with Nicko the cat.";
     return {
       meta: [
@@ -76,28 +78,34 @@ function LessonRunner({ lessonId }: { lessonId: string }) {
   const lesson = getLesson(lessonId)!;
   const { data, update } = useSave();
   const sfx = useSfx();
-  const [index, setIndex] = useState(0);
-  const [mistakes, setMistakes] = useState(0);
-  const [hearts, setHearts] = useState(0);
+  const saved = data.inProgress[lessonId];
+  const [index, setIndex] = useState(() => saved?.stepIndex ?? 0);
+  const [mistakes, setMistakes] = useState(() => saved?.mistakes ?? 0);
+  const [hearts, setHearts] = useState(() => saved?.hearts ?? 0);
+  const [masteryMistakes, setMasteryMistakes] = useState<number | null>(null);
   const [burst, setBurst] = useState<{ amount: number; key: number } | null>(null);
   const [finished, setFinished] = useState(false);
   const startedAt = useRef(Date.now());
 
-  const stars = starsFor(mistakes);
+  const stars = starsFor(masteryMistakes ?? 0);
 
   const handleDone = useCallback(
     (stepMistakes: number, bonusHearts = 0) => {
+      const currentStep = lesson.steps[index];
       const nextMistakes = mistakes + stepMistakes;
       const earnedHearts = (stepMistakes === 0 ? 3 : 1) + bonusHearts;
       const totalHearts = hearts + earnedHearts;
+      const nextMasteryMistakes = currentStep.kind === "mastery" ? stepMistakes : masteryMistakes;
       setMistakes(nextMistakes);
       setHearts(totalHearts);
+      if (currentStep.kind === "mastery") setMasteryMistakes(stepMistakes);
       setBurst({ amount: earnedHearts, key: Date.now() });
       sfx("heart");
       setTimeout(() => setBurst(null), 1400);
 
-      if (index + 1 >= lesson.steps.length) {
-        const earned = starsFor(nextMistakes);
+      const nextIndex = index + 1;
+      if (nextIndex >= lesson.steps.length) {
+        const earned = starsFor(nextMasteryMistakes ?? 0);
         const finishBonus = 5;
         setHearts(totalHearts + finishBonus);
         update((save) =>
@@ -114,19 +122,31 @@ function LessonRunner({ lessonId }: { lessonId: string }) {
         sfx("fanfare");
         setFinished(true);
       } else {
-        setIndex(index + 1);
+        setIndex(nextIndex);
+        update((save) => ({
+          ...save,
+          inProgress: {
+            ...save.inProgress,
+            [lesson.id]: { stepIndex: nextIndex, mistakes: nextMistakes, hearts: totalHearts },
+          },
+        }));
       }
     },
-    [hearts, index, lesson, mistakes, sfx, update],
+    [hearts, index, lesson, masteryMistakes, mistakes, sfx, update],
   );
 
   const replay = useCallback(() => {
     setIndex(0);
     setMistakes(0);
     setHearts(0);
+    setMasteryMistakes(null);
     setFinished(false);
     startedAt.current = Date.now();
-  }, []);
+    update((save) => {
+      const { [lesson.id]: _cleared, ...rest } = save.inProgress;
+      return { ...save, inProgress: rest };
+    });
+  }, [lesson.id, update]);
 
   const progress = Math.round(((index + (finished ? 1 : 0)) / lesson.steps.length) * 100);
 

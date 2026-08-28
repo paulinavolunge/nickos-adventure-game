@@ -19,7 +19,9 @@ export function useSfx() {
   return useCallback(
     (sound: Sound) => {
       if (!enabled || typeof window === "undefined") return;
-      const Ctx = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      const Ctx =
+        window.AudioContext ??
+        (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
       if (!Ctx) return;
       try {
         const ctx = new Ctx();

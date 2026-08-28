@@ -5,6 +5,7 @@ const nicko = nickoAsset.url;
 import { BigButton } from "@/components/game/BigButton";
 import { HeartMeter } from "@/components/game/HeartMeter";
 import { Stars } from "@/components/game/Stars";
+import { NERVOUS_BEFORE_NEW } from "@/game/nickoLines";
 import { totalStars, useSave } from "@/game/progress";
 
 export const Route = createFileRoute("/")({
@@ -19,7 +20,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Nicko's Adventures — Life Lessons Game for Kids 4-8" },
       {
         property: "og:description",
-        content: "Play as Nicko the tabby cat and learn real-life skills like calling 911, kindness, and street safety through friendly mini-games. No ads.",
+        content:
+          "Play as Nicko the tabby cat and learn real-life skills like calling 911, kindness, and street safety through friendly mini-games. No ads.",
       },
     ],
   }),
@@ -48,6 +50,12 @@ function TitleScreen() {
           Big lessons for little heroes
         </p>
       </div>
+
+      {stars === 0 && (
+        <p className="toy-card px-4 py-3 text-sm font-bold text-muted-foreground">
+          {NERVOUS_BEFORE_NEW}
+        </p>
+      )}
 
       <HeartMeter hearts={data.hearts} className="w-full" />
 

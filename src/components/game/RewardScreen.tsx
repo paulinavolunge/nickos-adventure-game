@@ -3,6 +3,7 @@ import { Heart } from "lucide-react";
 import type { Lesson } from "@/game/types";
 import { unlockedMilestones } from "@/game/hearts";
 import { LESSONS } from "@/game/lessons";
+import { PROUD_AFTER_MASTERY } from "@/game/nickoLines";
 import { useSave } from "@/game/progress";
 import { BigButton } from "./BigButton";
 import { HeartMeter } from "./HeartMeter";
@@ -24,11 +25,14 @@ export function RewardScreen({
   const before = Math.max(0, data.hearts - heartsEarned);
   const newlyUnlocked = unlockedMilestones(data.hearts).filter((m) => m.hearts > before);
   const nextLesson = LESSONS.find((l) => l.order === lesson.order + 1 && l.available);
+  const masteredIt = stars === 3;
 
   return (
     <div className="space-y-5 pop-in">
       <NickoSays
-        line={`You did it! I earned the ${lesson.badge.name} badge because you helped me. My heart feels so full!`}
+        line={`You did it! I earned the ${lesson.badge.name} badge because you helped me. My heart feels so full!${
+          masteredIt ? ` ${PROUD_AFTER_MASTERY}` : ""
+        }`}
       />
 
       <div className="toy-card space-y-5 p-6 text-center">
@@ -36,6 +40,11 @@ export function RewardScreen({
         <div className="flex justify-center">
           <Stars value={stars} size={44} />
         </div>
+        <p className="text-sm font-bold text-muted-foreground">
+          {masteredIt
+            ? "3 Confidence Stars — you didn't need any help on that last part!"
+            : "Nicko's got your back while you practice more of this one."}
+        </p>
         <p className="inline-flex items-center gap-2 rounded-full bg-coral px-5 py-2 font-display text-xl font-black text-coral-foreground">
           <Heart aria-hidden className="h-5 w-5 fill-current heart-pop" />+{heartsEarned} hearts
         </p>
@@ -108,7 +117,9 @@ function RewardTile({ emoji, label, name }: { emoji: string; label: string; name
       <span aria-hidden className="block text-4xl">
         {emoji}
       </span>
-      <p className="mt-1 text-xs font-black uppercase tracking-wide text-muted-foreground">{label}</p>
+      <p className="mt-1 text-xs font-black uppercase tracking-wide text-muted-foreground">
+        {label}
+      </p>
       <p className="text-sm font-bold">{name}</p>
     </div>
   );

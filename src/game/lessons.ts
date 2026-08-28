@@ -5,6 +5,7 @@ const call911: Lesson = {
   order: 1,
   title: "When to Call 911",
   lifeLesson: "Know when — and how — to call for help.",
+  tryTonight: "Ask: what's the first thing you'd do if you smelled smoke?",
   emoji: "🚒",
   tint: "coral",
   available: true,
@@ -56,13 +57,15 @@ const call911: Lesson = {
           emoji: "📞",
           hearts: 5,
           best: true,
-          feedback: "That's it! A person who is badly hurt needs help fast. Calling 911 is exactly right.",
+          feedback:
+            "That's it! A person who is badly hurt needs help fast. Calling 911 is exactly right.",
         },
         {
           label: "Call 911 because I can't find my toy mouse",
           emoji: "🧸",
           hearts: 0,
-          feedback: "A lost toy is a small problem. 911 helpers must stay free for real emergencies.",
+          feedback:
+            "A lost toy is a small problem. 911 helpers must stay free for real emergencies.",
         },
         {
           label: "Walk away and keep playing",
@@ -77,8 +80,7 @@ const call911: Lesson = {
       kind: "quiz",
       title: "Is This a 911 Moment?",
       question: "Which one means we should call 911?",
-      narration:
-        "911 is only for big emergencies. Which picture is a real emergency?",
+      narration: "911 is only for big emergencies. Which picture is a real emergency?",
       options: [
         {
           label: "A house is on fire",
@@ -157,8 +159,7 @@ const call911: Lesson = {
       scene:
         "Nicko is still holding the phone. His heart is beating fast. Ms. Rosa, the neighbor Nicko knows well, is watering her flowers next door.",
       question: "What is the kindest, safest next step?",
-      narration:
-        "I called for help. Now what should I do while we wait? Pick the safest idea.",
+      narration: "I called for help. Now what should I do while we wait? Pick the safest idea.",
       options: [
         {
           label: "Tell Ms. Rosa so a grown-up can help too",
@@ -171,7 +172,8 @@ const call911: Lesson = {
           label: "Hang up and hide under the porch",
           emoji: "😰",
           hearts: 0,
-          feedback: "Hiding is scary and Mr. Bell would be alone. Stay on the phone and get a grown-up.",
+          feedback:
+            "Hiding is scary and Mr. Bell would be alone. Stay on the phone and get a grown-up.",
         },
         {
           label: "Try to lift Mr. Bell all by myself",
@@ -182,12 +184,43 @@ const call911: Lesson = {
       ],
     },
     {
+      id: "mastery",
+      kind: "mastery",
+      title: "Show What You Know",
+      narration: "No hints this time — show me what you know!",
+      questions: [
+        {
+          prompt: "Which one is a real emergency?",
+          options: [
+            { label: "A house is on fire", emoji: "🔥", correct: true },
+            { label: "I dropped my ice cream", emoji: "🍦", correct: false },
+            { label: "My cartoon ended", emoji: "📺", correct: false },
+          ],
+        },
+        {
+          prompt: "Someone is badly hurt and can't get up. What do you do?",
+          options: [
+            { label: "Call 911", emoji: "📞", correct: true },
+            { label: "Walk away and keep playing", emoji: "🙈", correct: false },
+            { label: "Wait quietly and say nothing", emoji: "🤐", correct: false },
+          ],
+        },
+        {
+          prompt: "What are the three numbers you dial for help?",
+          options: [
+            { label: "9-1-1", emoji: "☎️", correct: true },
+            { label: "1-2-3", emoji: "🔢", correct: false },
+            { label: "5-5-5", emoji: "🔢", correct: false },
+          ],
+        },
+      ],
+    },
+    {
       id: "outro",
       kind: "story",
       title: "The Helpers Arrived!",
       body: "The fire truck rolls up with lights flashing. Everyone is safe — because Nicko knew when to call 911.",
-      narration:
-        "Hooray! The helpers came and everyone is safe. You are a real Helper Hero!",
+      narration: "Hooray! The helpers came and everyone is safe. You are a real Helper Hero!",
     },
   ],
 };
@@ -197,6 +230,8 @@ const fireSafety: Lesson = {
   order: 2,
   title: "Fire Safety",
   lifeLesson: "Get low, get out, stay out.",
+  tryTonight:
+    "Practice together: where's our family meeting spot outside, and does everyone know it?",
   emoji: "🧯",
   tint: "coral",
   available: true,
@@ -274,7 +309,7 @@ const fireSafety: Lesson = {
         "Nicko reaches the bedroom door. He touches the back of his paw to it, very gently. The door feels HOT.",
       question: "What should Nicko do?",
       narration:
-        "This door feels hot on my paw. A hot door means fire on the other side. What should I do?",
+        "Whoa — my paw almost went for the handle! Wait... a hot door means fire's on the other side. What should we do instead?",
       options: [
         {
           label: "Leave it shut and use the other way out",
@@ -320,8 +355,18 @@ const fireSafety: Lesson = {
       narration: "Every fire helper has a job. Match each one to what it does!",
       pairs: [
         { left: "Smoke alarm", leftEmoji: "🚨", right: "Warns you early", rightEmoji: "👂" },
-        { left: "Fire extinguisher", leftEmoji: "🧯", right: "A grown-up's tool", rightEmoji: "🧑‍🚒" },
-        { left: "Meeting spot", leftEmoji: "🌳", right: "Where family finds you", rightEmoji: "👨‍👩‍👧" },
+        {
+          left: "Fire extinguisher",
+          leftEmoji: "🧯",
+          right: "A grown-up's tool",
+          rightEmoji: "🧑‍🚒",
+        },
+        {
+          left: "Meeting spot",
+          leftEmoji: "🌳",
+          right: "Where family finds you",
+          rightEmoji: "👨‍👩‍👧",
+        },
       ],
     },
     {
@@ -379,6 +424,38 @@ const fireSafety: Lesson = {
       ],
     },
     {
+      id: "mastery",
+      kind: "mastery",
+      title: "Show What You Know",
+      narration: "No hints this time — show me what you know!",
+      questions: [
+        {
+          prompt: "The smoke alarm is beeping. What does it mean?",
+          options: [
+            { label: "There might be a fire — get out", emoji: "🚨", correct: true },
+            { label: "Time for a snack", emoji: "🍪", correct: false },
+            { label: "Someone's at the door", emoji: "🚪", correct: false },
+          ],
+        },
+        {
+          prompt: "You touch a door and it feels hot. What do you do?",
+          options: [
+            { label: "Leave it shut, use another way out", emoji: "🚪", correct: true },
+            { label: "Open it and run through", emoji: "🔥", correct: false },
+            { label: "Hide under the blanket", emoji: "🛏️", correct: false },
+          ],
+        },
+        {
+          prompt: "If your clothes ever catch fire, what do you do?",
+          options: [
+            { label: "Stop, drop, and roll", emoji: "🔄", correct: true },
+            { label: "Run to find water", emoji: "🏃", correct: false },
+            { label: "Wave your arms to put it out", emoji: "🙌", correct: false },
+          ],
+        },
+      ],
+    },
+    {
       id: "outro",
       kind: "story",
       title: "Everyone Is Safe",
@@ -393,6 +470,7 @@ const strangerSafety: Lesson = {
   order: 3,
   title: "Stranger Safety",
   lifeLesson: "Check first with a grown-up you trust.",
+  tryTonight: "Ask: if you got lost at the store, who are three safe helpers you could ask?",
   emoji: "🛡️",
   tint: "primary",
   available: true,
@@ -433,7 +511,7 @@ const strangerSafety: Lesson = {
       kind: "choice",
       title: "A Car Slows Down",
       scene:
-        "A car Nicko has never seen before slows down. The driver smiles and says, \"I lost my puppy. Can you help me look?\"",
+        'A car Nicko has never seen before slows down. The driver smiles and says, "I lost my puppy. Can you help me look?"',
       question: "What should Nicko do?",
       narration: "Someone I don't know is asking me for help. What should I do? Tap your answer.",
       options: [
@@ -456,8 +534,7 @@ const strangerSafety: Lesson = {
           label: "Walk closer to see the driver",
           emoji: "👀",
           hearts: 0,
-          feedback:
-            "Stay far back from a car you don't know. Step away and go find your grown-up.",
+          feedback: "Stay far back from a car you don't know. Step away and go find your grown-up.",
         },
       ],
     },
@@ -472,7 +549,8 @@ const strangerSafety: Lesson = {
           label: "A mom or dad with kids nearby",
           emoji: "👩‍👧",
           correct: true,
-          feedback: "Yes! A grown-up with children, or a worker in a uniform, is a good helper to ask.",
+          feedback:
+            "Yes! A grown-up with children, or a worker in a uniform, is a good helper to ask.",
         },
         {
           label: "Someone who says 'don't tell anyone'",
@@ -490,7 +568,8 @@ const strangerSafety: Lesson = {
           label: "Nobody — just walk home alone",
           emoji: "🚶",
           correct: false,
-          feedback: "Walking off alone makes it harder to find you. Stay put and ask a safe helper.",
+          feedback:
+            "Walking off alone makes it harder to find you. Stay put and ask a safe helper.",
         },
       ],
     },
@@ -534,7 +613,8 @@ const strangerSafety: Lesson = {
           label: "Go because Nicko knows his face",
           emoji: "👋",
           hearts: 0,
-          feedback: "Check First works for people we know too — even neighbors and friends. Always ask.",
+          feedback:
+            "Check First works for people we know too — even neighbors and friends. Always ask.",
         },
       ],
     },
@@ -586,6 +666,40 @@ const strangerSafety: Lesson = {
       ],
     },
     {
+      id: "mastery",
+      kind: "mastery",
+      title: "Show What You Know",
+      narration: "No hints this time — show me what you know!",
+      questions: [
+        {
+          prompt:
+            "A car you don't know slows down and the driver asks for help finding a puppy. What do you do?",
+          options: [
+            { label: "Step back and run to your grown-up", emoji: "🏃", correct: true },
+            { label: "Get in to help look", emoji: "🚗", correct: false },
+            { label: "Walk closer to see", emoji: "👀", correct: false },
+          ],
+        },
+        {
+          prompt: "You're lost at the park. Who is the safest person to ask for help?",
+          options: [
+            { label: "A mom or dad with kids nearby", emoji: "👩‍👧", correct: true },
+            { label: "Someone who says 'don't tell anyone'", emoji: "🤫", correct: false },
+            { label: "Whoever offers you candy", emoji: "🍬", correct: false },
+          ],
+        },
+        {
+          prompt:
+            "Before going anywhere with anyone — even someone you know — what do you always do?",
+          options: [
+            { label: "Check first with your grown-up", emoji: "🙋", correct: true },
+            { label: "Go quick, it's only a second", emoji: "⏱️", correct: false },
+            { label: "Go because you know their face", emoji: "👋", correct: false },
+          ],
+        },
+      ],
+    },
+    {
       id: "outro",
       kind: "story",
       title: "Nicko Told Grandpa",
@@ -600,6 +714,7 @@ const kindnessCounts: Lesson = {
   order: 4,
   title: "Kindness Counts",
   lifeLesson: "Little kind acts make big smiles.",
+  tryTonight: "Ask at dinner: who did you help today, even in a small way?",
   emoji: "💗",
   tint: "grape",
   available: true,
@@ -742,10 +857,11 @@ const kindnessCounts: Lesson = {
     {
       id: "keypad",
       kind: "keypad",
-      title: "Call a Friend",
+      title: "Ring the Doorbell",
       code: "123",
-      hint: "Tap one, two, three to invite Ruby over",
-      narration: "Let's call Ruby to come play. A phone call can brighten a friend's whole day!",
+      hint: "Tap Ruby's door code: one, two, three",
+      narration:
+        "Let's go cheer Ruby up in person. Her family gave us the door code — tap one, two, three!",
     },
     {
       id: "memory",
@@ -791,6 +907,38 @@ const kindnessCounts: Lesson = {
       ],
     },
     {
+      id: "mastery",
+      kind: "mastery",
+      title: "Show What You Know",
+      narration: "No hints this time — show me what you know!",
+      questions: [
+        {
+          prompt: "Which one shows kindness?",
+          options: [
+            { label: "Sharing your snack", emoji: "🍎", correct: true },
+            { label: "Laughing when someone falls", emoji: "😆", correct: false },
+            { label: "Grabbing a toy you want", emoji: "🧸", correct: false },
+          ],
+        },
+        {
+          prompt: "A new kid is standing alone looking nervous. What's the kind thing to do?",
+          options: [
+            { label: "Say hi and invite them to play", emoji: "👋", correct: true },
+            { label: "Whisper about them with friends", emoji: "🤫", correct: false },
+            { label: "Wait for them to come to you", emoji: "⏳", correct: false },
+          ],
+        },
+        {
+          prompt: "Someone spills their lunch tray and everyone is staring. What do you do?",
+          options: [
+            { label: "Help pick it up", emoji: "🍽️", correct: true },
+            { label: "Point and laugh", emoji: "😂", correct: false },
+            { label: "Look away and keep eating", emoji: "😶", correct: false },
+          ],
+        },
+      ],
+    },
+    {
       id: "outro",
       kind: "story",
       title: "Ruby Wagged Her Tail",
@@ -805,6 +953,8 @@ const bigFeelings: Lesson = {
   order: 5,
   title: "Big Feelings",
   lifeLesson: "Name it to tame it.",
+  tryTonight:
+    "Practice together: take three slow breaths together next time either of you feels frustrated.",
   emoji: "😊",
   tint: "sunny",
   available: true,
@@ -832,8 +982,7 @@ const bigFeelings: Lesson = {
       kind: "obstacle",
       title: "Walk to the Calm Corner",
       goalLabel: "Reach the cozy chair",
-      narration:
-        "When feelings get big, I go to my calm corner. Help me pick the safe way there!",
+      narration: "When feelings get big, I go to my calm corner. Help me pick the safe way there!",
       lanes: [
         { prompt: "Toys spread across the floor!", safe: "jump" },
         { prompt: "A soft blanket hanging low!", safe: "duck" },
@@ -882,7 +1031,8 @@ const bigFeelings: Lesson = {
       scene:
         "Nicko's favorite toy just snapped in half. His chest feels hot and his eyes are watering. He wants to throw something.",
       question: "What is the safe, kind thing to do?",
-      narration: "I'm SO upset right now. What should I do with this big feeling?",
+      narration:
+        "I almost chucked this toy across the room — whew, stopped myself just in time! What should I do instead with this big feeling?",
       options: [
         {
           label: "Take three big breaths and ask for a hug",
@@ -903,7 +1053,8 @@ const bigFeelings: Lesson = {
           label: "Yell at whoever is nearby",
           emoji: "📣",
           hearts: 0,
-          feedback: "Yelling passes the hurt to someone else. Our feelings are ours to feel — kindly.",
+          feedback:
+            "Yelling passes the hurt to someone else. Our feelings are ours to feel — kindly.",
         },
       ],
     },
@@ -983,8 +1134,40 @@ const bigFeelings: Lesson = {
           label: "Snap at Grandpa about breakfast",
           emoji: "🗯️",
           hearts: 0,
-          feedback:
-            "Grandpa didn't cause the grumpy feeling. He is your helper, not your target.",
+          feedback: "Grandpa didn't cause the grumpy feeling. He is your helper, not your target.",
+        },
+      ],
+    },
+    {
+      id: "mastery",
+      kind: "mastery",
+      title: "Show What You Know",
+      narration: "No hints this time — show me what you know!",
+      questions: [
+        {
+          prompt:
+            "Your favorite toy just broke and you feel SO upset. What's the safe thing to do?",
+          options: [
+            { label: "Take deep breaths and ask for a hug", emoji: "🌬️", correct: true },
+            { label: "Throw something across the room", emoji: "💥", correct: false },
+            { label: "Yell at whoever is nearby", emoji: "📣", correct: false },
+          ],
+        },
+        {
+          prompt: "A friend took your ball and won't give it back. What are you probably feeling?",
+          options: [
+            { label: "Frustrated", emoji: "😤", correct: true },
+            { label: "Sleepy", emoji: "😴", correct: false },
+            { label: "Excited", emoji: "🤩", correct: false },
+          ],
+        },
+        {
+          prompt: "You wake up grumpy for no reason. What's the best thing to say?",
+          options: [
+            { label: "'I feel grumpy. I need a minute.'", emoji: "💬", correct: true },
+            { label: "Grumble and stomp off", emoji: "😤", correct: false },
+            { label: "Snap at whoever is nearby", emoji: "🗯️", correct: false },
+          ],
         },
       ],
     },
@@ -1004,6 +1187,7 @@ const teamworkTime: Lesson = {
   order: 6,
   title: "Teamwork Time",
   lifeLesson: "Together is stronger.",
+  tryTonight: "Ask: what's one thing you and a friend built or solved together this week?",
   emoji: "🧩",
   tint: "primary",
   available: true,
@@ -1023,14 +1207,16 @@ const teamworkTime: Lesson = {
       kind: "story",
       title: "The Big Treehouse Plan",
       body: "Nicko and his friends want to build the biggest treehouse ever. But the boards are heavy and the plan is tricky. One kitten alone can't do it — but a team can.",
-      narration: "This treehouse is too big for one cat. Good thing I have you and my friends. Let's team up!",
+      narration:
+        "This treehouse is too big for one cat. Good thing I have you and my friends. Let's team up!",
     },
     {
       id: "carry",
       kind: "obstacle",
       title: "Carry the Big Log",
       goalLabel: "Reach the build site",
-      narration: "We're carrying a long log together. Help me pick the safe move so we don't drop it!",
+      narration:
+        "We're carrying a long log together. Help me pick the safe move so we don't drop it!",
       lanes: [
         { prompt: "A puddle right in the path!", safe: "jump" },
         { prompt: "A low clothesline stretched across!", safe: "duck" },
@@ -1045,23 +1231,61 @@ const teamworkTime: Lesson = {
       question: "Which one is the sign of a great teammate?",
       narration: "A great team is made of great teammates. Which one is being a good teammate?",
       options: [
-        { label: "Cheering when a friend tries", emoji: "🎉", correct: true, feedback: "Yes! Cheering makes everyone braver — even when things are hard." },
-        { label: "Doing all the work alone", emoji: "😤", correct: false, feedback: "A team means everyone helps. Sharing the load makes the job smaller for everyone." },
-        { label: "Telling a friend they did it wrong", emoji: "🙄", correct: false, feedback: "Kind coaching works better. Try 'want to try it this way?' instead." },
-        { label: "Taking the biggest piece", emoji: "🍰", correct: false, feedback: "Fair shares keep the team happy. Grabbing the biggest piece isn't teamwork." },
+        {
+          label: "Cheering when a friend tries",
+          emoji: "🎉",
+          correct: true,
+          feedback: "Yes! Cheering makes everyone braver — even when things are hard.",
+        },
+        {
+          label: "Doing all the work alone",
+          emoji: "😤",
+          correct: false,
+          feedback:
+            "A team means everyone helps. Sharing the load makes the job smaller for everyone.",
+        },
+        {
+          label: "Telling a friend they did it wrong",
+          emoji: "🙄",
+          correct: false,
+          feedback: "Kind coaching works better. Try 'want to try it this way?' instead.",
+        },
+        {
+          label: "Taking the biggest piece",
+          emoji: "🍰",
+          correct: false,
+          feedback: "Fair shares keep the team happy. Grabbing the biggest piece isn't teamwork.",
+        },
       ],
     },
     {
       id: "reach",
       kind: "choice",
       title: "Too High to Reach",
-      scene: "Ruby needs the last nail from the very top shelf. Even on her tippy-toes she can't reach it.",
+      scene:
+        "Ruby needs the last nail from the very top shelf. Even on her tippy-toes she can't reach it.",
       question: "What's the best move?",
       narration: "Ruby can't reach. What should I do?",
       options: [
-        { label: "Boost her up together", emoji: "🤝", hearts: 5, best: true, feedback: "That's it! Two paws lifting is stronger than one. That's teamwork." },
-        { label: "Say 'guess we're stuck then'", emoji: "🤷", hearts: 0, feedback: "Giving up too fast wastes your team's brain power. Try together first." },
-        { label: "Climb up alone and leave her out", emoji: "🧗", hearts: 0, feedback: "Solving it alone can make a teammate feel left out. Ruby wanted to help too." },
+        {
+          label: "Boost her up together",
+          emoji: "🤝",
+          hearts: 5,
+          best: true,
+          feedback: "That's it! Two paws lifting is stronger than one. That's teamwork.",
+        },
+        {
+          label: "Say 'guess we're stuck then'",
+          emoji: "🤷",
+          hearts: 0,
+          feedback: "Giving up too fast wastes your team's brain power. Try together first.",
+        },
+        {
+          label: "Climb up alone and leave her out",
+          emoji: "🧗",
+          hearts: 0,
+          feedback: "Solving it alone can make a teammate feel left out. Ruby wanted to help too.",
+        },
       ],
     },
     {
@@ -1090,10 +1314,11 @@ const teamworkTime: Lesson = {
     {
       id: "keypad",
       kind: "keypad",
-      title: "Rally the Team",
+      title: "Call the Team on the Walkie-Talkie",
       code: "555",
-      hint: "Tap five, five, five to call everyone over",
-      narration: "Time to gather the whole team. Tap five, five, five!",
+      hint: "Tap the team channel: five, five, five",
+      narration:
+        "Time to radio the team on the walkie-talkie! Tap five, five, five to open the channel.",
     },
     {
       id: "memory",
@@ -1111,13 +1336,62 @@ const teamworkTime: Lesson = {
       id: "win",
       kind: "choice",
       title: "The Treehouse Is Done!",
-      scene: "The treehouse is finally built. Everyone is smiling. Nicko was the one who carried the last board up the ladder.",
+      scene:
+        "The treehouse is finally built. Everyone is smiling. Nicko was the one who carried the last board up the ladder.",
       question: "What should Nicko say?",
       narration: "We finished! What should I say?",
       options: [
-        { label: "'We did it — together!'", emoji: "🎉", hearts: 5, best: true, feedback: "Yes! Sharing the win makes the whole team proud." },
-        { label: "'I did the hardest part'", emoji: "😎", hearts: 0, feedback: "Bragging shrinks other people's happy. Team wins belong to everyone." },
-        { label: "Say nothing and take the biggest snack", emoji: "🍪", hearts: 0, feedback: "The team worked with you. Celebrate together — snacks too." },
+        {
+          label: "'We did it — together!'",
+          emoji: "🎉",
+          hearts: 5,
+          best: true,
+          feedback: "Yes! Sharing the win makes the whole team proud.",
+        },
+        {
+          label: "'I did the hardest part'",
+          emoji: "😎",
+          hearts: 0,
+          feedback: "Bragging shrinks other people's happy. Team wins belong to everyone.",
+        },
+        {
+          label: "Say nothing and take the biggest snack",
+          emoji: "🍪",
+          hearts: 0,
+          feedback: "The team worked with you. Celebrate together — snacks too.",
+        },
+      ],
+    },
+    {
+      id: "mastery",
+      kind: "mastery",
+      title: "Show What You Know",
+      narration: "No hints this time — show me what you know!",
+      questions: [
+        {
+          prompt: "Which one is being a good teammate?",
+          options: [
+            { label: "Cheering when a friend tries", emoji: "🎉", correct: true },
+            { label: "Doing all the work alone", emoji: "😤", correct: false },
+            { label: "Taking the biggest piece", emoji: "🍰", correct: false },
+          ],
+        },
+        {
+          prompt: "A friend can't reach the top shelf. What's the best move?",
+          options: [
+            { label: "Boost them up together", emoji: "🤝", correct: true },
+            { label: "Say 'guess we're stuck'", emoji: "🤷", correct: false },
+            { label: "Climb up alone, leave them out", emoji: "🧗", correct: false },
+          ],
+        },
+        {
+          prompt: "Your team finishes the big project. What should you say?",
+          options: [
+            { label: "'We did it — together!'", emoji: "🎉", correct: true },
+            { label: "'I did the hardest part'", emoji: "😎", correct: false },
+            { label: "Say nothing, grab the biggest snack", emoji: "🍪", correct: false },
+          ],
+        },
       ],
     },
     {
@@ -1135,6 +1409,7 @@ const healthyHabits: Lesson = {
   order: 7,
   title: "Healthy Habits",
   lifeLesson: "Strong bodies, happy days.",
+  tryTonight: "Do together: brush teeth side by side tonight and count to 20 together.",
   emoji: "🥕",
   tint: "accent",
   available: true,
@@ -1154,7 +1429,8 @@ const healthyHabits: Lesson = {
       kind: "story",
       title: "A Day of Good Habits",
       body: "Nicko wakes up feeling wiggly. Today he wants to feel strong all day — from breakfast to bedtime. Little habits, done every day, make that happen.",
-      narration: "I want to feel my best today. Little healthy habits add up big. Let's do them together!",
+      narration:
+        "I want to feel my best today. Little healthy habits add up big. Let's do them together!",
     },
     {
       id: "to-the-sink",
@@ -1176,23 +1452,60 @@ const healthyHabits: Lesson = {
       question: "Which snack helps your body grow strong?",
       narration: "Some snacks give us zoomies, some help us grow. Which one fuels you?",
       options: [
-        { label: "Apples and cheese", emoji: "🍎", correct: true, feedback: "Yes! Fruit and protein together give your body real fuel." },
-        { label: "A whole bag of candy", emoji: "🍬", correct: false, feedback: "Sweet is a treat, not fuel. A little is fine — a whole bag makes tummies sad." },
-        { label: "Yesterday's cold pizza crust", emoji: "🍕", correct: false, feedback: "Old food can make you sick. Fresh food takes better care of you." },
-        { label: "Whatever is closest", emoji: "🤷", correct: false, feedback: "Snacks work better when you pick on purpose. Look for real food first." },
+        {
+          label: "Apples and cheese",
+          emoji: "🍎",
+          correct: true,
+          feedback: "Yes! Fruit and protein together give your body real fuel.",
+        },
+        {
+          label: "A whole bag of candy",
+          emoji: "🍬",
+          correct: false,
+          feedback: "Sweet is a treat, not fuel. A little is fine — a whole bag makes tummies sad.",
+        },
+        {
+          label: "Yesterday's cold pizza crust",
+          emoji: "🍕",
+          correct: false,
+          feedback: "Old food can make you sick. Fresh food takes better care of you.",
+        },
+        {
+          label: "Whatever is closest",
+          emoji: "🤷",
+          correct: false,
+          feedback: "Snacks work better when you pick on purpose. Look for real food first.",
+        },
       ],
     },
     {
       id: "sneezed",
       kind: "choice",
       title: "Achoo!",
-      scene: "Nicko sneezes a big sneeze right into his paws. His paws are wet and sticky now. Snack time is in one minute.",
+      scene:
+        "Nicko sneezes a big sneeze right into his paws. His paws are wet and sticky now. Snack time is in one minute.",
       question: "What should Nicko do first?",
       narration: "I sneezed into my paws. What now?",
       options: [
-        { label: "Wash paws with soap and warm water", emoji: "🧼", hearts: 5, best: true, feedback: "That's it! Soap plus warm water washes germs down the drain." },
-        { label: "Wipe them on my shirt and go eat", emoji: "👕", hearts: 0, feedback: "Wiping just moves germs around. Soap and water actually take them away." },
-        { label: "Skip washing — it's just a sneeze", emoji: "🙄", hearts: 0, feedback: "Sneeze germs stick. Even a quick wash beats no wash." },
+        {
+          label: "Wash paws with soap and warm water",
+          emoji: "🧼",
+          hearts: 5,
+          best: true,
+          feedback: "That's it! Soap plus warm water washes germs down the drain.",
+        },
+        {
+          label: "Wipe them on my shirt and go eat",
+          emoji: "👕",
+          hearts: 0,
+          feedback: "Wiping just moves germs around. Soap and water actually take them away.",
+        },
+        {
+          label: "Skip washing — it's just a sneeze",
+          emoji: "🙄",
+          hearts: 0,
+          feedback: "Sneeze germs stick. Even a quick wash beats no wash.",
+        },
       ],
     },
     {
@@ -1214,7 +1527,12 @@ const healthyHabits: Lesson = {
       narration: "Every habit has a reason. Match each one to what it does!",
       pairs: [
         { left: "Washing paws", leftEmoji: "🧼", right: "Washes germs away", rightEmoji: "✨" },
-        { left: "Moving your body", leftEmoji: "🤸", right: "Makes your heart strong", rightEmoji: "❤️" },
+        {
+          left: "Moving your body",
+          leftEmoji: "🤸",
+          right: "Makes your heart strong",
+          rightEmoji: "❤️",
+        },
         { left: "Good sleep", leftEmoji: "😴", right: "Grows your brain", rightEmoji: "🧠" },
       ],
     },
@@ -1242,13 +1560,63 @@ const healthyHabits: Lesson = {
       id: "one-more-show",
       kind: "choice",
       title: "One More Show?",
-      scene: "It's bedtime. Nicko is yawning but there's a really good show on. Grandpa says it's time to brush and sleep.",
+      scene:
+        "It's bedtime. Nicko is yawning but there's a really good show on. Grandpa says it's time to brush and sleep.",
       question: "What should Nicko do?",
       narration: "I'm tired but the show is fun. What's the smart choice?",
       options: [
-        { label: "Brush, get into bed, save it for tomorrow", emoji: "🛏️", hearts: 5, best: true, feedback: "That's it! Sleep helps your body grow. The show will be there tomorrow." },
-        { label: "Sneak in one more episode", emoji: "📺", hearts: 0, feedback: "One more turns into three more. Late nights make tomorrow grumpy." },
-        { label: "Skip brushing to save time", emoji: "🪥", hearts: 0, feedback: "Skipping the brush lets sugar bugs party on your teeth. Two minutes is worth it." },
+        {
+          label: "Brush, get into bed, save it for tomorrow",
+          emoji: "🛏️",
+          hearts: 5,
+          best: true,
+          feedback: "That's it! Sleep helps your body grow. The show will be there tomorrow.",
+        },
+        {
+          label: "Sneak in one more episode",
+          emoji: "📺",
+          hearts: 0,
+          feedback: "One more turns into three more. Late nights make tomorrow grumpy.",
+        },
+        {
+          label: "Skip brushing to save time",
+          emoji: "🪥",
+          hearts: 0,
+          feedback:
+            "Skipping the brush lets sugar bugs party on your teeth. Two minutes is worth it.",
+        },
+      ],
+    },
+    {
+      id: "mastery",
+      kind: "mastery",
+      title: "Show What You Know",
+      narration: "No hints this time — show me what you know!",
+      questions: [
+        {
+          prompt: "Which snack helps your body grow strong?",
+          options: [
+            { label: "Apples and cheese", emoji: "🍎", correct: true },
+            { label: "A whole bag of candy", emoji: "🍬", correct: false },
+            { label: "Yesterday's cold pizza crust", emoji: "🍕", correct: false },
+          ],
+        },
+        {
+          prompt: "You just sneezed into your paws. What do you do first?",
+          options: [
+            { label: "Wash with soap and warm water", emoji: "🧼", correct: true },
+            { label: "Wipe them on your shirt", emoji: "👕", correct: false },
+            { label: "Skip washing — it's just a sneeze", emoji: "🙄", correct: false },
+          ],
+        },
+        {
+          prompt: "It's bedtime and there's a good show on. What's the healthy choice?",
+          options: [
+            { label: "Brush teeth, get into bed", emoji: "🛏️", correct: true },
+            { label: "Sneak in one more episode", emoji: "📺", correct: false },
+            { label: "Skip brushing to save time", emoji: "🪥", correct: false },
+          ],
+        },
       ],
     },
     {
@@ -1266,6 +1634,7 @@ const animalCare: Lesson = {
   order: 8,
   title: "Animal Care",
   lifeLesson: "Gentle hands, happy pets.",
+  tryTonight: "Ask: how can you tell when our pet (or a friend's pet) wants some quiet space?",
   emoji: "🐾",
   tint: "grape",
   available: true,
@@ -1285,7 +1654,8 @@ const animalCare: Lesson = {
       kind: "story",
       title: "The New Puppy Next Door",
       body: "The Bells got a brand-new puppy named Biscuit. Biscuit is small and shy. Nicko wants to be a good pet friend, so today he learns how.",
-      narration: "Biscuit is new here and a little bit scared. Let's learn how to be a really good pet friend!",
+      narration:
+        "Biscuit is new here and a little bit scared. Let's learn how to be a really good pet friend!",
     },
     {
       id: "water",
@@ -1307,23 +1677,61 @@ const animalCare: Lesson = {
       question: "Biscuit is a new dog. What's the safe way to say hello?",
       narration: "Biscuit doesn't know me yet. How should I say hello?",
       options: [
-        { label: "Kneel low, offer a slow hand to sniff", emoji: "🤲", correct: true, feedback: "Yes! Letting a dog sniff first says 'I'm safe.' Then gentle pets are okay." },
-        { label: "Run up and hug their neck", emoji: "🤗", correct: false, feedback: "Fast hugs can scare a dog. Slow and low is friendlier." },
-        { label: "Grab their tail to say hi", emoji: "✋", correct: false, feedback: "Never grab a tail — it hurts. Hands go to the chin or side, gently." },
-        { label: "Yell 'HI DOGGIE'", emoji: "📣", correct: false, feedback: "Loud noises scare pets. Soft voices work much better." },
+        {
+          label: "Kneel low, offer a slow hand to sniff",
+          emoji: "🤲",
+          correct: true,
+          feedback: "Yes! Letting a dog sniff first says 'I'm safe.' Then gentle pets are okay.",
+        },
+        {
+          label: "Run up and hug their neck",
+          emoji: "🤗",
+          correct: false,
+          feedback: "Fast hugs can scare a dog. Slow and low is friendlier.",
+        },
+        {
+          label: "Grab their tail to say hi",
+          emoji: "✋",
+          correct: false,
+          feedback: "Never grab a tail — it hurts. Hands go to the chin or side, gently.",
+        },
+        {
+          label: "Yell 'HI DOGGIE'",
+          emoji: "📣",
+          correct: false,
+          feedback: "Loud noises scare pets. Soft voices work much better.",
+        },
       ],
     },
     {
       id: "hiding",
       kind: "choice",
       title: "Biscuit Hides",
-      scene: "Biscuit is curled up under the bed with his ears flat back. He is trembling a little.",
+      scene:
+        "Biscuit is curled up under the bed with his ears flat back. He is trembling a little.",
       question: "What is the kind thing to do?",
       narration: "Biscuit is scared and hiding. What should I do?",
       options: [
-        { label: "Sit quietly nearby and let him come out on his own", emoji: "🧘", hearts: 5, best: true, feedback: "Perfect. Giving a scared pet space says 'I respect you.' Trust grows from that." },
-        { label: "Pull him out to cheer him up", emoji: "🖐️", hearts: 0, feedback: "Pulling a scared pet makes fear worse. Let him choose when to come out." },
-        { label: "Poke him with a toy to play", emoji: "🎾", hearts: 0, feedback: "A scared pet doesn't want to play. Wait for tail wags first." },
+        {
+          label: "Sit quietly nearby and let him come out on his own",
+          emoji: "🧘",
+          hearts: 5,
+          best: true,
+          feedback:
+            "Perfect. Giving a scared pet space says 'I respect you.' Trust grows from that.",
+        },
+        {
+          label: "Pull him out to cheer him up",
+          emoji: "🖐️",
+          hearts: 0,
+          feedback: "Pulling a scared pet makes fear worse. Let him choose when to come out.",
+        },
+        {
+          label: "Poke him with a toy to play",
+          emoji: "🎾",
+          hearts: 0,
+          feedback: "A scared pet doesn't want to play. Wait for tail wags first.",
+        },
       ],
     },
     {
@@ -1344,7 +1752,12 @@ const animalCare: Lesson = {
       title: "Pet Body Talk",
       narration: "Pets talk with their bodies. Match the sign to what it means!",
       pairs: [
-        { left: "Wagging tail (loose)", leftEmoji: "🐕", right: "Happy to see you", rightEmoji: "😊" },
+        {
+          left: "Wagging tail (loose)",
+          leftEmoji: "🐕",
+          right: "Happy to see you",
+          rightEmoji: "😊",
+        },
         { left: "Ears flat back", leftEmoji: "🐈", right: "Scared or upset", rightEmoji: "😨" },
         { left: "Purring, slow blinks", leftEmoji: "😻", right: "Feeling safe", rightEmoji: "💗" },
       ],
@@ -1373,13 +1786,63 @@ const animalCare: Lesson = {
       id: "cat-alone",
       kind: "choice",
       title: "The Cat Wants Space",
-      scene: "The neighbor's cat, Willow, is licking her paw and looking away. When Nicko reaches out, she turns her back.",
+      scene:
+        "The neighbor's cat, Willow, is licking her paw and looking away. When Nicko reaches out, she turns her back.",
       question: "What should Nicko do?",
       narration: "Willow turned her back on me. What should I do?",
       options: [
-        { label: "Leave her alone — she's asking for space", emoji: "🚪", hearts: 5, best: true, feedback: "Yes! A pet turning away is asking for a break. Respecting that is real love." },
-        { label: "Keep petting to make her feel better", emoji: "🖐️", hearts: 0, feedback: "'More pets' isn't the answer for a cat asking for quiet. Space is the answer." },
-        { label: "Follow her to the next room", emoji: "🏃", hearts: 0, feedback: "Following a pet who's escaping makes them feel trapped. Let her come back to you." },
+        {
+          label: "Leave her alone — she's asking for space",
+          emoji: "🚪",
+          hearts: 5,
+          best: true,
+          feedback: "Yes! A pet turning away is asking for a break. Respecting that is real love.",
+        },
+        {
+          label: "Keep petting to make her feel better",
+          emoji: "🖐️",
+          hearts: 0,
+          feedback: "'More pets' isn't the answer for a cat asking for quiet. Space is the answer.",
+        },
+        {
+          label: "Follow her to the next room",
+          emoji: "🏃",
+          hearts: 0,
+          feedback:
+            "Following a pet who's escaping makes them feel trapped. Let her come back to you.",
+        },
+      ],
+    },
+    {
+      id: "mastery",
+      kind: "mastery",
+      title: "Show What You Know",
+      narration: "No hints this time — show me what you know!",
+      questions: [
+        {
+          prompt: "You meet a new dog for the first time. What's the safe way to say hello?",
+          options: [
+            { label: "Kneel low, offer a slow hand to sniff", emoji: "🤲", correct: true },
+            { label: "Run up and hug their neck", emoji: "🤗", correct: false },
+            { label: "Yell 'HI DOGGIE'", emoji: "📣", correct: false },
+          ],
+        },
+        {
+          prompt: "A pet is hiding under the bed, trembling. What's the kind thing to do?",
+          options: [
+            { label: "Sit quietly nearby, let them come out", emoji: "🧘", correct: true },
+            { label: "Pull them out to cheer them up", emoji: "🖐️", correct: false },
+            { label: "Poke them with a toy to play", emoji: "🎾", correct: false },
+          ],
+        },
+        {
+          prompt: "A cat turns her back on you when you reach out. What is she telling you?",
+          options: [
+            { label: "She wants space right now", emoji: "🚪", correct: true },
+            { label: "She wants more pets", emoji: "🖐️", correct: false },
+            { label: "She wants you to follow her", emoji: "🏃", correct: false },
+          ],
+        },
       ],
     },
     {
@@ -1397,6 +1860,7 @@ const problemSolving: Lesson = {
   order: 9,
   title: "Problem Solving",
   lifeLesson: "Think it through, step by step.",
+  tryTonight: "Ask: what's something that didn't work on the first try — what did you try next?",
   emoji: "🧠",
   tint: "sunny",
   available: true,
@@ -1416,14 +1880,16 @@ const problemSolving: Lesson = {
       kind: "story",
       title: "The Locked Puzzle Box",
       body: "Nicko finds a wooden puzzle box in the workshop. It has knobs and slides and a lock. He has no idea how to open it — yet.",
-      narration: "This box is a puzzle. I don't know how to open it, but I bet if we take it step by step, we can figure it out. Ready?",
+      narration:
+        "This box is a puzzle. I don't know how to open it, but I bet if we take it step by step, we can figure it out. Ready?",
     },
     {
       id: "to-workshop",
       kind: "obstacle",
       title: "Get to the Workshop",
       goalLabel: "Reach the workshop bench",
-      narration: "Let's take the box to the workshop where we can look at it carefully. Help me pick the safe path!",
+      narration:
+        "Let's take the box to the workshop where we can look at it carefully. Help me pick the safe path!",
       lanes: [
         { prompt: "A stack of books in the way!", safe: "jump" },
         { prompt: "A hanging lamp low over the hall!", safe: "duck" },
@@ -1438,23 +1904,62 @@ const problemSolving: Lesson = {
       question: "You've tried three ways and it still doesn't work. What's the best next step?",
       narration: "I'm stuck. What should I do?",
       options: [
-        { label: "Take a breath, then try one small new thing", emoji: "🌬️", correct: true, feedback: "Yes! Calm plus one small new try beats banging your head every time." },
-        { label: "Give up and throw the box", emoji: "😤", correct: false, feedback: "Throwing doesn't solve it — and breaks the puzzle. Calm wins." },
-        { label: "Try the exact same way, harder", emoji: "💪", correct: false, feedback: "The same way = the same result. Something small has to change." },
-        { label: "Wait for someone else to do it", emoji: "⏳", correct: false, feedback: "Sometimes help is good, but try first — your brain is stronger than you think." },
+        {
+          label: "Take a breath, then try one small new thing",
+          emoji: "🌬️",
+          correct: true,
+          feedback: "Yes! Calm plus one small new try beats banging your head every time.",
+        },
+        {
+          label: "Give up and throw the box",
+          emoji: "😤",
+          correct: false,
+          feedback: "Throwing doesn't solve it — and breaks the puzzle. Calm wins.",
+        },
+        {
+          label: "Try the exact same way, harder",
+          emoji: "💪",
+          correct: false,
+          feedback: "The same way = the same result. Something small has to change.",
+        },
+        {
+          label: "Wait for someone else to do it",
+          emoji: "⏳",
+          correct: false,
+          feedback:
+            "Sometimes help is good, but try first — your brain is stronger than you think.",
+        },
       ],
     },
     {
       id: "wrong-piece",
       kind: "choice",
       title: "It Won't Fit",
-      scene: "Nicko is trying to fit a puzzle piece into a slot. He pushes and pushes, but it just won't go.",
+      scene:
+        "Nicko is trying to fit a puzzle piece into a slot. He pushes and pushes, but it just won't go.",
       question: "What should Nicko do?",
       narration: "This piece won't fit. What should I do?",
       options: [
-        { label: "Stop pushing — try a different piece", emoji: "🧩", hearts: 5, best: true, feedback: "Perfect. If it doesn't fit, it's the wrong piece. Trying a different one is smart, not quitting." },
-        { label: "Push harder until it fits", emoji: "💪", hearts: 0, feedback: "Forcing usually breaks things. Puzzles want the RIGHT piece, not force." },
-        { label: "Hide the piece and pretend it's done", emoji: "🙈", hearts: 0, feedback: "Hiding the problem doesn't solve it. It'll be there tomorrow too." },
+        {
+          label: "Stop pushing — try a different piece",
+          emoji: "🧩",
+          hearts: 5,
+          best: true,
+          feedback:
+            "Perfect. If it doesn't fit, it's the wrong piece. Trying a different one is smart, not quitting.",
+        },
+        {
+          label: "Push harder until it fits",
+          emoji: "💪",
+          hearts: 0,
+          feedback: "Forcing usually breaks things. Puzzles want the RIGHT piece, not force.",
+        },
+        {
+          label: "Hide the piece and pretend it's done",
+          emoji: "🙈",
+          hearts: 0,
+          feedback: "Hiding the problem doesn't solve it. It'll be there tomorrow too.",
+        },
       ],
     },
     {
@@ -1475,9 +1980,24 @@ const problemSolving: Lesson = {
       title: "Problem, First Step",
       narration: "Every tricky moment has a good first step. Match them!",
       pairs: [
-        { left: "Puzzle piece won't fit", leftEmoji: "🧩", right: "Try a different piece", rightEmoji: "🔄" },
-        { left: "Can't remember a word", leftEmoji: "💭", right: "Describe it in other words", rightEmoji: "🗣️" },
-        { left: "Feeling stuck and frustrated", leftEmoji: "😤", right: "Take a break and breathe", rightEmoji: "🌬️" },
+        {
+          left: "Puzzle piece won't fit",
+          leftEmoji: "🧩",
+          right: "Try a different piece",
+          rightEmoji: "🔄",
+        },
+        {
+          left: "Can't remember a word",
+          leftEmoji: "💭",
+          right: "Describe it in other words",
+          rightEmoji: "🗣️",
+        },
+        {
+          left: "Feeling stuck and frustrated",
+          leftEmoji: "😤",
+          right: "Take a break and breathe",
+          rightEmoji: "🌬️",
+        },
       ],
     },
     {
@@ -1486,7 +2006,8 @@ const problemSolving: Lesson = {
       title: "The Lock Combination",
       code: "246",
       hint: "Tap two, four, six — the pattern grows by two",
-      narration: "The box has a code — two, four, six. Every number is two bigger. See the pattern?",
+      narration:
+        "The box has a code — two, four, six. Every number is two bigger. See the pattern?",
     },
     {
       id: "memory",
@@ -1508,9 +2029,57 @@ const problemSolving: Lesson = {
       question: "What is the best move now?",
       narration: "The first try didn't work. What now?",
       options: [
-        { label: "Look again, check what changed, try once more", emoji: "🔎", hearts: 5, best: true, feedback: "Yes! One 'no' is not a stop sign. Look, learn, try again." },
-        { label: "Decide the box is broken and walk off", emoji: "🚶", hearts: 0, feedback: "Almost every puzzle takes more than one try. Walking off misses the win." },
-        { label: "Get mad and shake the box", emoji: "😠", hearts: 0, feedback: "Shaking might break it. Calm brains solve puzzles faster than mad ones." },
+        {
+          label: "Look again, check what changed, try once more",
+          emoji: "🔎",
+          hearts: 5,
+          best: true,
+          feedback: "Yes! One 'no' is not a stop sign. Look, learn, try again.",
+        },
+        {
+          label: "Decide the box is broken and walk off",
+          emoji: "🚶",
+          hearts: 0,
+          feedback: "Almost every puzzle takes more than one try. Walking off misses the win.",
+        },
+        {
+          label: "Get mad and shake the box",
+          emoji: "😠",
+          hearts: 0,
+          feedback: "Shaking might break it. Calm brains solve puzzles faster than mad ones.",
+        },
+      ],
+    },
+    {
+      id: "mastery",
+      kind: "mastery",
+      title: "Show What You Know",
+      narration: "No hints this time — show me what you know!",
+      questions: [
+        {
+          prompt: "You've tried three ways and it still doesn't work. What's the best next step?",
+          options: [
+            { label: "Take a breath, try one small new thing", emoji: "🌬️", correct: true },
+            { label: "Give up and throw the box", emoji: "😤", correct: false },
+            { label: "Try the exact same way, harder", emoji: "💪", correct: false },
+          ],
+        },
+        {
+          prompt: "A puzzle piece won't fit no matter how you push. What do you do?",
+          options: [
+            { label: "Try a different piece", emoji: "🧩", correct: true },
+            { label: "Push harder until it fits", emoji: "💪", correct: false },
+            { label: "Hide the piece and pretend it's done", emoji: "🙈", correct: false },
+          ],
+        },
+        {
+          prompt: "Your first try at the code didn't work. What's the best move?",
+          options: [
+            { label: "Look again, check what changed, try once more", emoji: "🔎", correct: true },
+            { label: "Decide it's broken and walk off", emoji: "🚶", correct: false },
+            { label: "Get mad and shake the box", emoji: "😠", correct: false },
+          ],
+        },
       ],
     },
     {
@@ -1528,6 +2097,8 @@ const crossingStreets: Lesson = {
   order: 10,
   title: "Crossing Streets",
   lifeLesson: "Stop, look, listen, walk.",
+  tryTonight:
+    "Practice together: next time you cross a street, have them say 'stop, look, listen, walk' out loud with you.",
   emoji: "🚦",
   tint: "coral",
   available: true,
@@ -1547,7 +2118,8 @@ const crossingStreets: Lesson = {
       kind: "story",
       title: "Walking to Grandma's",
       body: "Nicko is walking to Grandma's house with Grandpa. There are three streets to cross. Today he learns how to cross like a pro.",
-      narration: "Three streets between us and Grandma. Let's cross them the safe way, every single time!",
+      narration:
+        "Three streets between us and Grandma. Let's cross them the safe way, every single time!",
     },
     {
       id: "to-corner",
@@ -1569,10 +2141,31 @@ const crossingStreets: Lesson = {
       question: "The walk signal is white. What do you check before stepping into the street?",
       narration: "The little walk person is white. Am I ready to go?",
       options: [
-        { label: "Look left, right, and left again", emoji: "👀", correct: true, feedback: "Yes! The walk signal isn't a guarantee — your eyes are. Check both ways every time." },
-        { label: "Sprint across without looking", emoji: "🏃", correct: false, feedback: "Even with the walk signal, cars can be there. Eyes first, always." },
-        { label: "Close your eyes and hope", emoji: "🙈", correct: false, feedback: "Closing your eyes hides cars, not stops them. Look before you go." },
-        { label: "Wait for someone else to cross first", emoji: "👥", correct: false, feedback: "Following can help, but your own eyes still have to check. Look for yourself." },
+        {
+          label: "Look left, right, and left again",
+          emoji: "👀",
+          correct: true,
+          feedback:
+            "Yes! The walk signal isn't a guarantee — your eyes are. Check both ways every time.",
+        },
+        {
+          label: "Sprint across without looking",
+          emoji: "🏃",
+          correct: false,
+          feedback: "Even with the walk signal, cars can be there. Eyes first, always.",
+        },
+        {
+          label: "Close your eyes and hope",
+          emoji: "🙈",
+          correct: false,
+          feedback: "Closing your eyes hides cars, not stops them. Look before you go.",
+        },
+        {
+          label: "Wait for someone else to cross first",
+          emoji: "👥",
+          correct: false,
+          feedback: "Following can help, but your own eyes still have to check. Look for yourself.",
+        },
       ],
     },
     {
@@ -1581,11 +2174,29 @@ const crossingStreets: Lesson = {
       title: "The Ball Rolled Away",
       scene: "Nicko's ball rolls off the curb and into the street. A car is coming down the road.",
       question: "What should Nicko do?",
-      narration: "Oh no, my ball is in the street! What should I do?",
+      narration:
+        "My paw took one step off the curb without thinking — good thing you caught me! What should we actually do?",
       options: [
-        { label: "Stay on the sidewalk, tell a grown-up", emoji: "🛑", hearts: 5, best: true, feedback: "Exactly. A ball can be replaced. You cannot. Grown-ups get balls back safely." },
-        { label: "Dash out fast to grab it", emoji: "🏃", hearts: 0, feedback: "Never chase anything into the street. Cars can't stop as fast as a ball rolls." },
-        { label: "Wait until the car looks close, then run", emoji: "🚗", hearts: 0, feedback: "Judging car speed is really hard, even for grown-ups. Stay on the sidewalk." },
+        {
+          label: "Stay on the sidewalk, tell a grown-up",
+          emoji: "🛑",
+          hearts: 5,
+          best: true,
+          feedback: "Exactly. A ball can be replaced. You cannot. Grown-ups get balls back safely.",
+        },
+        {
+          label: "Dash out fast to grab it",
+          emoji: "🏃",
+          hearts: 0,
+          feedback:
+            "Never chase anything into the street. Cars can't stop as fast as a ball rolls.",
+        },
+        {
+          label: "Wait until the car looks close, then run",
+          emoji: "🚗",
+          hearts: 0,
+          feedback: "Judging car speed is really hard, even for grown-ups. Stay on the sidewalk.",
+        },
       ],
     },
     {
@@ -1607,17 +2218,23 @@ const crossingStreets: Lesson = {
       narration: "Traffic talks in signals. Match each one to what you do!",
       pairs: [
         { left: "Red hand", leftEmoji: "✋", right: "Stop and wait", rightEmoji: "🛑" },
-        { left: "White walking person", leftEmoji: "🚶", right: "Look then cross", rightEmoji: "👀" },
+        {
+          left: "White walking person",
+          leftEmoji: "🚶",
+          right: "Look then cross",
+          rightEmoji: "👀",
+        },
         { left: "Blinking hand", leftEmoji: "🖐️", right: "Don't start crossing", rightEmoji: "⏳" },
       ],
     },
     {
       id: "keypad",
       kind: "keypad",
-      title: "Push the Walk Button",
-      code: "222",
-      hint: "Tap two, two, two to press the walk button",
-      narration: "Some crosswalks have a button. Push it and the walk person turns white. Tap two, two, two!",
+      title: "Learn Your Address",
+      code: "482",
+      hint: "Tap your house number: four, eight, two",
+      narration:
+        "Knowing your house number helps you get home safely if you ever get turned around while walking. Tap four, eight, two!",
     },
     {
       id: "memory",
@@ -1635,13 +2252,63 @@ const crossingStreets: Lesson = {
       id: "grownup-says-wait",
       kind: "choice",
       title: "Grandpa Says Wait",
-      scene: "The walk signal turns white, but Grandpa holds Nicko's paw a little tighter. 'Wait, buddy.' A big truck is turning the corner.",
+      scene:
+        "The walk signal turns white, but Grandpa holds Nicko's paw a little tighter. 'Wait, buddy.' A big truck is turning the corner.",
       question: "What should Nicko do?",
       narration: "The sign says walk but Grandpa says wait. Who do I listen to?",
       options: [
-        { label: "Listen to Grandpa — he sees the truck", emoji: "🧑‍🦳", hearts: 5, best: true, feedback: "Yes! A signal is a rule; a grown-up can see things the sign can't. Listen to your grown-up." },
-        { label: "Go anyway because the sign says walk", emoji: "🚶", hearts: 0, feedback: "Signs don't see trucks. Grown-ups do. Trust the paw squeeze." },
-        { label: "Yank your hand free and run", emoji: "🏃", hearts: 0, feedback: "Pulling free is dangerous near the road. Hands stay together." },
+        {
+          label: "Listen to Grandpa — he sees the truck",
+          emoji: "🧑‍🦳",
+          hearts: 5,
+          best: true,
+          feedback:
+            "Yes! A signal is a rule; a grown-up can see things the sign can't. Listen to your grown-up.",
+        },
+        {
+          label: "Go anyway because the sign says walk",
+          emoji: "🚶",
+          hearts: 0,
+          feedback: "Signs don't see trucks. Grown-ups do. Trust the paw squeeze.",
+        },
+        {
+          label: "Yank your hand free and run",
+          emoji: "🏃",
+          hearts: 0,
+          feedback: "Pulling free is dangerous near the road. Hands stay together.",
+        },
+      ],
+    },
+    {
+      id: "mastery",
+      kind: "mastery",
+      title: "Show What You Know",
+      narration: "No hints this time — show me what you know!",
+      questions: [
+        {
+          prompt: "The walk signal is white. What do you check before stepping out?",
+          options: [
+            { label: "Look left, right, and left again", emoji: "👀", correct: true },
+            { label: "Sprint across without looking", emoji: "🏃", correct: false },
+            { label: "Close your eyes and hope", emoji: "🙈", correct: false },
+          ],
+        },
+        {
+          prompt: "Your ball rolls into the street and a car is coming. What do you do?",
+          options: [
+            { label: "Stay on the sidewalk, tell a grown-up", emoji: "🛑", correct: true },
+            { label: "Dash out fast to grab it", emoji: "🏃", correct: false },
+            { label: "Wait until the car looks close, then run", emoji: "🚗", correct: false },
+          ],
+        },
+        {
+          prompt: "The sign says walk, but your grown-up says wait. Who do you listen to?",
+          options: [
+            { label: "Your grown-up — they see more than the sign", emoji: "🧑‍🦳", correct: true },
+            { label: "Go anyway, the sign says walk", emoji: "🚶", correct: false },
+            { label: "Yank your hand free and run", emoji: "🏃", correct: false },
+          ],
+        },
       ],
     },
     {
@@ -1649,7 +2316,8 @@ const crossingStreets: Lesson = {
       kind: "story",
       title: "Made It to Grandma's",
       body: "Three streets, three safe crossings. Grandma had cookies on the counter and a hug ready at the door. Nicko crossed like a real pro today.",
-      narration: "You did it! Stop, look, listen, walk — every single time. You are a true Street Smart!",
+      narration:
+        "You did it! Stop, look, listen, walk — every single time. You are a true Street Smart!",
     },
   ],
 };
