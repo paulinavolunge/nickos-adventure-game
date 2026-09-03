@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Play, Map as MapIcon, ShieldCheck, Sparkles } from "lucide-react";
+import { Play, Map as MapIcon, ShieldCheck, Sparkles, Cat } from "lucide-react";
 import nickoAsset from "@/assets/nicko.png.asset.json";
 const nicko = nickoAsset.url;
 import { BigButton } from "@/components/game/BigButton";
@@ -79,10 +79,16 @@ function TitleScreen() {
             World map
           </BigButton>
         </Link>
+        <Link to="/room" className="w-full">
+          <BigButton variant="primary" className="w-full">
+            <Cat aria-hidden className="h-6 w-6" />
+            Nicko&apos;s room
+          </BigButton>
+        </Link>
         <Link to="/rewards" className="w-full">
           <BigButton variant="grape" className="w-full">
             <Sparkles aria-hidden className="h-6 w-6" />
-            Nicko&apos;s room
+            Rewards &amp; stickers
           </BigButton>
         </Link>
         <Link to="/parents" className="w-full">

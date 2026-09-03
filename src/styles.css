@@ -246,3 +246,40 @@
   75% { opacity: 1; transform: translate(-50%, -10px) scale(1); }
   100% { opacity: 0; transform: translate(-50%, -34px) scale(0.95); }
 }
+
+/* Nicko's Room */
+
+@utility nicko-tap {
+  animation: nicko-tap 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes nicko-tap {
+  0% { transform: scale(1) rotate(0deg); }
+  30% { transform: scale(1.12) rotate(-4deg); }
+  60% { transform: scale(0.97) rotate(3deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* A single tapped-out particle (heart or food) drifting up and fading. */
+@utility float-up {
+  animation: float-up 1s ease-out forwards;
+}
+
+@keyframes float-up {
+  0% { opacity: 0; transform: translateY(0) scale(0.6); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-90px) scale(1.1); }
+}
+
+/* Bouncy Fish Coin — celebrates coins on the reward screen. */
+@utility coin-bounce {
+  animation: coin-bounce 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes coin-bounce {
+  0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
+  40% { transform: translateY(-10px) rotate(-14deg) scale(1.15); opacity: 1; }
+  70% { transform: translateY(0) rotate(10deg) scale(1); }
+  85% { transform: translateY(-4px) rotate(-4deg); }
+  100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
