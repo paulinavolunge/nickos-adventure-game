@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Home } from "lucide-react";
+import { Home, ShoppingBag } from "lucide-react";
 import nickoAsset from "@/assets/nicko.png.asset.json";
 const nicko = nickoAsset.url;
 import { BigButton } from "@/components/game/BigButton";
@@ -8,6 +8,7 @@ import { NickoSays } from "@/components/game/NickoSays";
 import { HEART_MILESTONES, heartLevel } from "@/game/hearts";
 import { LESSONS } from "@/game/lessons";
 import { useSave } from "@/game/progress";
+import { ALL_OUTFITS } from "@/game/shop";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/rewards")({
@@ -34,14 +35,19 @@ function RewardsRoom() {
   const level = heartLevel(data.hearts);
   const badges = LESSONS.filter((l) => data.badges.includes(l.badge.id));
   const stickers = LESSONS.filter((l) => data.stickers.includes(l.sticker.id));
-  const outfits = LESSONS.filter((l) => l.outfit && data.outfits.includes(l.outfit.id));
+  const outfits = ALL_OUTFITS.filter((o) => data.outfits.includes(o.id));
 
   return (
     <main
       className={`mx-auto w-full max-w-md space-y-5 px-4 py-6 ${data.settings.bigText ? "text-lg" : ""}`}
     >
-      <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+      <header className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2">
         <h1 className="truncate font-display text-3xl font-black">Nicko&apos;s Room</h1>
+        <Link to="/shop" aria-label={`Open the Fish Coin shop — you have ${data.fishCoins} coins`}>
+          <BigButton variant="sunny" size="icon">
+            <ShoppingBag aria-hidden className="h-6 w-6" />
+          </BigButton>
+        </Link>
         <Link to="/" aria-label="Back to title screen">
           <BigButton variant="quiet" size="icon">
             <Home aria-hidden className="h-6 w-6" />
@@ -124,8 +130,7 @@ function RewardsRoom() {
           </p>
         ) : (
           <div className="grid grid-cols-3 gap-3">
-            {outfits.map((l) => {
-              const outfit = l.outfit!;
+            {outfits.map((outfit) => {
               const worn = data.equippedOutfit === outfit.id;
               return (
                 <button

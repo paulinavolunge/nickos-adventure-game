@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { Heart } from "lucide-react";
+import { Coins, Heart } from "lucide-react";
 import type { Lesson } from "@/game/types";
 import { unlockedMilestones } from "@/game/hearts";
 import { LESSONS } from "@/game/lessons";
 import { PROUD_AFTER_MASTERY } from "@/game/nickoLines";
-import { useSave } from "@/game/progress";
+import { coinsForStars, useSave } from "@/game/progress";
 import { BigButton } from "./BigButton";
 import { HeartMeter } from "./HeartMeter";
 import { NickoSays } from "./NickoSays";
@@ -26,6 +26,7 @@ export function RewardScreen({
   const newlyUnlocked = unlockedMilestones(data.hearts).filter((m) => m.hearts > before);
   const nextLesson = LESSONS.find((l) => l.order === lesson.order + 1 && l.available);
   const masteredIt = stars === 3;
+  const coinsEarned = coinsForStars(stars);
 
   return (
     <div className="space-y-5 pop-in">
@@ -45,9 +46,15 @@ export function RewardScreen({
             ? "3 Confidence Stars — you didn't need any help on that last part!"
             : "Nicko's got your back while you practice more of this one."}
         </p>
-        <p className="inline-flex items-center gap-2 rounded-full bg-coral px-5 py-2 font-display text-xl font-black text-coral-foreground">
-          <Heart aria-hidden className="h-5 w-5 fill-current heart-pop" />+{heartsEarned} hearts
-        </p>
+        <div className="flex flex-wrap justify-center gap-3">
+          <p className="inline-flex items-center gap-2 rounded-full bg-coral px-5 py-2 font-display text-xl font-black text-coral-foreground">
+            <Heart aria-hidden className="h-5 w-5 fill-current heart-pop" />+{heartsEarned} hearts
+          </p>
+          <p className="inline-flex items-center gap-2 rounded-full bg-sunny px-5 py-2 font-display text-xl font-black text-sunny-foreground">
+            <Coins aria-hidden className="h-5 w-5 coin-bounce" style={{ fill: "gold" }} />+
+            {coinsEarned} coins
+          </p>
+        </div>
         <div className="grid grid-cols-3 gap-3">
           <RewardTile emoji={lesson.badge.emoji} label="Badge" name={lesson.badge.name} />
           <RewardTile emoji={lesson.sticker.emoji} label="Sticker" name={lesson.sticker.name} />

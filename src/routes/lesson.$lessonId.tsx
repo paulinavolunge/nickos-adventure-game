@@ -7,7 +7,7 @@ import { NickoSays } from "@/components/game/NickoSays";
 import { RewardScreen } from "@/components/game/RewardScreen";
 import { StepRenderer } from "@/components/game/steps";
 import { getLesson } from "@/game/lessons";
-import { completeLesson, useSave } from "@/game/progress";
+import { coinsForStars, completeLesson, useSave } from "@/game/progress";
 import { useSfx } from "@/game/useSfx";
 
 export const Route = createFileRoute("/lesson/$lessonId")({
@@ -113,6 +113,7 @@ function LessonRunner({ lessonId }: { lessonId: string }) {
             lessonId: lesson.id,
             stars: earned,
             hearts: totalHearts + finishBonus,
+            coins: coinsForStars(earned),
             secondsPlayed: Math.round((Date.now() - startedAt.current) / 1000),
             badgeId: lesson.badge.id,
             stickerId: lesson.sticker.id,

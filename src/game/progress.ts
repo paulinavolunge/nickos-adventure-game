@@ -9,6 +9,9 @@ export type LessonProgress = {
 
 export type InProgressLesson = { stepIndex: number; mistakes: number; hearts: number };
 
+/** Nicko's care meters. Each runs 0–100; care raises them, time decays them. */
+export type PetStats = { hunger: number; happiness: number; energy: number };
+
 export type SaveData = {
   playerName: string;
   lessons: Record<string, LessonProgress>;
@@ -18,6 +21,12 @@ export type SaveData = {
   outfits: string[];
   equippedOutfit: string | null;
   hearts: number;
+  /** Spendable arcade currency earned from mini-games. */
+  fishCoins: number;
+  /** Virtual-pet care meters (see pet.ts for the reducers that move them). */
+  stats: PetStats;
+  /** ISO timestamp of the last time stats were settled; drives time-based decay. */
+  statsUpdatedAt: string;
   decorations: string[];
   trophies: string[];
   stories: string[];
@@ -36,6 +45,10 @@ const EMPTY: SaveData = {
   outfits: [],
   equippedOutfit: null,
   hearts: 0,
+  fishCoins: 0,
+  stats: { hunger: 80, happiness: 80, energy: 80 },
+  // Left blank so it is a stable, SSR-safe constant; pet.ts stamps a real time on first settle.
+  statsUpdatedAt: "",
   decorations: [],
   trophies: [],
   stories: [],
@@ -49,12 +62,40 @@ let cache: SaveData = EMPTY;
 let loaded = false;
 const listeners = new Set<() => void>();
 
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/**
+ * Recursively layer a stored save over the current defaults.
+ *
+ * Missing keys inherit their default, and nested plain objects (e.g. `stats`,
+ * `settings`) are merged key-by-key rather than replaced wholesale — so a future
+ * property added inside `stats` back-fills into older saves instead of being wiped
+ * out by whatever partial object those saves happened to persist. Arrays (badges,
+ * stickers, …) are treated as leaves: the saved value replaces the default entirely.
+ */
+function mergeSave(base: unknown, override: unknown): unknown {
+  if (!isPlainObject(base) || !isPlainObject(override)) {
+    return override === undefined ? base : override;
+  }
+  const out: Record<string, unknown> = { ...base };
+  for (const key of Object.keys(override)) {
+    out[key] = mergeSave(base[key], override[key]);
+  }
+  return out;
+}
+
+function normalize(parsed: unknown): SaveData {
+  return isPlainObject(parsed) ? (mergeSave(EMPTY, parsed) as SaveData) : EMPTY;
+}
+
 function read(): SaveData {
   if (typeof window === "undefined") return EMPTY;
   if (loaded) return cache;
   try {
     const raw = window.localStorage.getItem(KEY);
-    cache = raw ? { ...EMPTY, ...JSON.parse(raw) } : EMPTY;
+    cache = raw ? normalize(JSON.parse(raw)) : EMPTY;
   } catch {
     cache = EMPTY;
   }
@@ -98,6 +139,7 @@ export function completeLesson(
     stickerId: string;
     outfitId?: string;
     hearts?: number;
+    coins?: number;
   },
 ): SaveData {
   const prev = save.lessons[opts.lessonId];
@@ -105,6 +147,7 @@ export function completeLesson(
   return {
     ...save,
     hearts: (save.hearts ?? 0) + (opts.hearts ?? 0),
+    fishCoins: (save.fishCoins ?? 0) + (opts.coins ?? 0),
     lessons: {
       ...save.lessons,
       [opts.lessonId]: {
@@ -123,4 +166,13 @@ export function completeLesson(
 
 export function totalStars(save: SaveData) {
   return Object.values(save.lessons).reduce((sum, l) => sum + l.stars, 0);
+}
+
+/**
+ * Fish Coins awarded for finishing a lesson: a base of 10, plus 2 per star beyond
+ * the first (10 / 12 / 14 for 1★ / 2★ / 3★). Shared by the completion handler and
+ * the reward screen so the celebrated number always matches what is banked.
+ */
+export function coinsForStars(stars: number): number {
+  return 10 + Math.max(0, stars - 1) * 2;
 }
