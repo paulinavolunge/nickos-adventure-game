@@ -237,45 +237,32 @@ function QuizStep({ step, onDone }: StepProps) {
 }
 
 function KeypadStep({ step, onDone }: StepProps) {
-  const [entry, setEntry] = useState("");
-  const [mistakes, setMistakes] = useState(0);
+  const [done, setDone] = useState(false);
   if (step.kind !== "keypad") return null;
 
-  function tap(digit: string) {
-    if (step.kind !== "keypad") return;
-    const next = entry + digit;
-    if (!step.code.startsWith(next)) {
-      setMistakes((m) => m + 1);
-      setEntry("");
-      return;
-    }
-    setEntry(next);
-    if (next === step.code) setTimeout(() => onDone(mistakes), 700);
+  // One friendly, oversized tap-to-act button that always succeeds on the first
+  // press. No numeric sequences and no simulated dialing — just the action.
+  function act() {
+    if (done) return;
+    setDone(true);
+    setTimeout(() => onDone(0), 650);
   }
 
   return (
     <Panel title={step.title}>
-      <div className="toy-card mx-auto w-full max-w-xs p-5 text-center">
-        <p className="mb-3 text-sm font-bold text-muted-foreground">{step.hint}</p>
-        <p
-          aria-live="polite"
-          className="mb-4 h-14 rounded-2xl bg-muted text-4xl font-black leading-[3.5rem] tracking-[0.4em]"
+      <div className="toy-card mx-auto w-full max-w-xs space-y-6 p-6 text-center">
+        <span aria-hidden className={cn("block text-7xl", done ? "heart-pop" : "bob")}>
+          {done ? "✅" : (step.ctaEmoji ?? "📞")}
+        </span>
+        <BigButton
+          size="lg"
+          variant={done ? "accent" : "coral"}
+          className="w-full"
+          onClick={act}
+          disabled={done}
         >
-          {entry || "•••"}
-        </p>
-        <div className="grid grid-cols-3 gap-2">
-          {["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"].map((d) => (
-            <BigButton
-              key={d}
-              variant="quiet"
-              aria-label={`Number ${d}`}
-              onClick={() => tap(d)}
-              className="text-2xl"
-            >
-              {d}
-            </BigButton>
-          ))}
-        </div>
+          {done ? "Great job!" : step.cta}
+        </BigButton>
       </div>
     </Panel>
   );

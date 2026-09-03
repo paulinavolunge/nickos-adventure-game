@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Coins, Heart } from "lucide-react";
+import { Coins, Heart, ShoppingBag } from "lucide-react";
 import type { Lesson } from "@/game/types";
 import { unlockedMilestones } from "@/game/hearts";
 import { LESSONS } from "@/game/lessons";
@@ -94,24 +94,39 @@ export function RewardScreen({
         </div>
       )}
 
-      <div className="flex flex-wrap justify-center gap-3">
+      {/* Primary calls to action: keep the core loop (spend your new coins!) one tap away. */}
+      <div className="space-y-3">
         {nextLesson && (
-          <Link to="/lesson/$lessonId" params={{ lessonId: nextLesson.id }}>
-            <BigButton size="lg" variant="coral">
+          <Link to="/lesson/$lessonId" params={{ lessonId: nextLesson.id }} className="block">
+            <BigButton size="lg" variant="coral" className="w-full">
               Next: {nextLesson.title} {nextLesson.emoji}
             </BigButton>
           </Link>
         )}
-        <BigButton size="lg" variant="accent" onClick={onReplay}>
+        <div className="grid grid-cols-2 gap-3">
+          <Link to="/room" className="block">
+            <BigButton variant="primary" className="w-full flex-col gap-1 py-3">
+              <span aria-hidden className="text-2xl">
+                🏠
+              </span>
+              Nicko&apos;s Room
+            </BigButton>
+          </Link>
+          <Link to="/shop" className="block">
+            <BigButton variant="sunny" className="w-full flex-col gap-1 py-3">
+              <ShoppingBag aria-hidden className="h-6 w-6" />
+              Visit Shop
+            </BigButton>
+          </Link>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap justify-center gap-3">
+        <BigButton variant="accent" onClick={onReplay}>
           Play again
         </BigButton>
-        <Link to="/rewards">
-          <BigButton size="lg" variant="grape">
-            Nicko&apos;s room
-          </BigButton>
-        </Link>
         <Link to="/map">
-          <BigButton size="lg">Back to map</BigButton>
+          <BigButton variant="quiet">Back to map</BigButton>
         </Link>
       </div>
     </div>

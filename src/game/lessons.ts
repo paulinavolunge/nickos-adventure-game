@@ -111,10 +111,10 @@ const call911: Lesson = {
     {
       id: "keypad",
       kind: "keypad",
-      title: "Dial for Help",
-      code: "911",
-      hint: "Tap nine, one, one",
-      narration: "Now tap the numbers nine, one, one on the phone.",
+      title: "Call for Help",
+      cta: "Call for help",
+      ctaEmoji: "📞",
+      narration: "This is a real emergency. Tap the big button to call for help!",
     },
     {
       id: "sequence",
@@ -373,10 +373,10 @@ const fireSafety: Lesson = {
       id: "keypad",
       kind: "keypad",
       title: "Call From Outside",
-      code: "911",
-      hint: "Tap nine, one, one from a safe place outside",
+      cta: "Call for help",
+      ctaEmoji: "📞",
       narration:
-        "We are outside now, so it's safe to call. Never stay inside to call. Tap nine, one, one!",
+        "We are safely outside now. Tap the button to call for help. Never go back inside!",
     },
     {
       id: "memory",
@@ -621,11 +621,11 @@ const strangerSafety: Lesson = {
     {
       id: "keypad",
       kind: "keypad",
-      title: "Learn a Grown-Up's Number",
-      code: "555",
-      hint: "Tap Grandpa's number: five, five, five",
+      title: "Reach a Grown-Up",
+      cta: "Call Grandpa",
+      ctaEmoji: "📞",
       narration:
-        "Knowing a grown-up's phone number helps a safe helper reach them fast. Let's practice!",
+        "A trusted grown-up can always help. Tap the button to call Grandpa!",
     },
     {
       id: "safe-or-ask",
@@ -858,10 +858,9 @@ const kindnessCounts: Lesson = {
       id: "keypad",
       kind: "keypad",
       title: "Ring the Doorbell",
-      code: "123",
-      hint: "Tap Ruby's door code: one, two, three",
-      narration:
-        "Let's go cheer Ruby up in person. Her family gave us the door code — tap one, two, three!",
+      cta: "Ring the doorbell",
+      ctaEmoji: "🔔",
+      narration: "Let's go cheer Ruby up in person. Tap the button to ring her doorbell!",
     },
     {
       id: "memory",
@@ -1091,9 +1090,9 @@ const bigFeelings: Lesson = {
       id: "keypad",
       kind: "keypad",
       title: "Call a Trusted Grown-Up",
-      code: "444",
-      hint: "Tap four, four, four to reach Mom",
-      narration: "When a feeling is too big to hold alone, a grown-up can help. Let's call Mom!",
+      cta: "Call Mom",
+      ctaEmoji: "📞",
+      narration: "When a feeling is too big to hold alone, a grown-up can help. Tap to call Mom!",
     },
     {
       id: "memory",
@@ -1314,11 +1313,10 @@ const teamworkTime: Lesson = {
     {
       id: "keypad",
       kind: "keypad",
-      title: "Call the Team on the Walkie-Talkie",
-      code: "555",
-      hint: "Tap the team channel: five, five, five",
-      narration:
-        "Time to radio the team on the walkie-talkie! Tap five, five, five to open the channel.",
+      title: "Call the Team",
+      cta: "Call the team",
+      ctaEmoji: "📻",
+      narration: "Time to reach the team! Tap the button to open the walkie-talkie channel.",
     },
     {
       id: "memory",
@@ -1540,9 +1538,9 @@ const healthyHabits: Lesson = {
       id: "keypad",
       kind: "keypad",
       title: "Set the Bedtime Alarm",
-      code: "800",
-      hint: "Tap eight, zero, zero for 8:00",
-      narration: "Bedtime alarm helps my body get sleepy on time. Set it for 8:00!",
+      cta: "Set the alarm",
+      ctaEmoji: "⏰",
+      narration: "A bedtime alarm helps my body get sleepy on time. Tap to set it!",
     },
     {
       id: "memory",
@@ -1766,9 +1764,9 @@ const animalCare: Lesson = {
       id: "keypad",
       kind: "keypad",
       title: "Call the Vet",
-      code: "700",
-      hint: "Tap seven, zero, zero for the vet",
-      narration: "If a pet is sick, a grown-up calls the vet. Let's practice — seven, zero, zero!",
+      cta: "Call the vet",
+      ctaEmoji: "📞",
+      narration: "If a pet is sick, a grown-up calls the vet. Tap the button to call!",
     },
     {
       id: "memory",
@@ -2003,11 +2001,10 @@ const problemSolving: Lesson = {
     {
       id: "keypad",
       kind: "keypad",
-      title: "The Lock Combination",
-      code: "246",
-      hint: "Tap two, four, six — the pattern grows by two",
-      narration:
-        "The box has a code — two, four, six. Every number is two bigger. See the pattern?",
+      title: "Open the Treasure Box",
+      cta: "Open the box",
+      ctaEmoji: "🔓",
+      narration: "The treasure box is ready to open. Tap the button to lift the lid!",
     },
     {
       id: "memory",
@@ -2230,11 +2227,11 @@ const crossingStreets: Lesson = {
     {
       id: "keypad",
       kind: "keypad",
-      title: "Learn Your Address",
-      code: "482",
-      hint: "Tap your house number: four, eight, two",
+      title: "Know Your Address",
+      cta: "Say your address",
+      ctaEmoji: "🏠",
       narration:
-        "Knowing your house number helps you get home safely if you ever get turned around while walking. Tap four, eight, two!",
+        "Knowing your home helps you stay safe if you ever get turned around while walking. Tap to say your address out loud!",
     },
     {
       id: "memory",

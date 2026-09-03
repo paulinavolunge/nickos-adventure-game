@@ -271,18 +271,23 @@ function RoomScreen() {
         <DrawerContent className="mx-auto max-w-md">
           <DrawerHeader>
             <DrawerTitle className="font-display text-2xl font-black">
-              Pick a snack for Nicko
+              🆓 Free snacks for Nicko
             </DrawerTitle>
-            <DrawerDescription>Tap a food to feed him and fill his hunger.</DrawerDescription>
+            <DrawerDescription>
+              These snacks are always free — no coins needed! Tap one to fill Nicko&apos;s hunger.
+            </DrawerDescription>
           </DrawerHeader>
-          <div className="grid grid-cols-2 gap-3 p-4 pb-8">
+          <div className="grid grid-cols-2 gap-3 p-4">
             {FOODS.map((food) => (
               <button
                 key={food.id}
                 onClick={() => handleFeed(food)}
-                className="toy-card flex flex-col items-center gap-1 p-4 transition-transform active:scale-95"
-                aria-label={`Feed ${food.name}`}
+                className="toy-card relative flex flex-col items-center gap-1 p-4 transition-transform active:scale-95"
+                aria-label={`Feed ${food.name} — free, adds ${food.amount} hunger`}
               >
+                <span className="absolute right-2 top-2 rounded-full bg-accent px-2 py-0.5 text-[0.65rem] font-black uppercase text-accent-foreground">
+                  Free
+                </span>
                 <span aria-hidden className="text-5xl">
                   {food.emoji}
                 </span>
@@ -290,6 +295,15 @@ function RoomScreen() {
                 <span className="text-xs font-bold text-muted-foreground">+{food.amount} hunger</span>
               </button>
             ))}
+          </div>
+          {/* Clarify the free options above vs. the coin-priced treats in the shop. */}
+          <div className="px-4 pb-8 pt-1">
+            <Link to="/shop" onClick={() => setFeedOpen(false)} className="block">
+              <BigButton variant="sunny" className="w-full">
+                <ShoppingBag aria-hidden className="h-6 w-6" />
+                Fancy treats? Visit the shop
+              </BigButton>
+            </Link>
           </div>
         </DrawerContent>
       </Drawer>

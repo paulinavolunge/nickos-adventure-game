@@ -36,20 +36,38 @@ function ShopScreen() {
   const { data, update } = useSave();
   const sfx = useSfx();
   const [burst, setBurst] = useState<{ emoji: string; key: number } | null>(null);
+  const [shakeId, setShakeId] = useState<string | null>(null);
+  const [blocked, setBlocked] = useState<{ need: number; key: number } | null>(null);
 
   const celebrate = useCallback((emoji: string) => {
     setBurst({ emoji, key: Date.now() });
     window.setTimeout(() => setBurst(null), 1200);
   }, []);
 
+  // Friendly "not enough coins yet" feedback: wobble the tapped card and pop a
+  // little message telling the child how many coins are still needed.
+  const denyPurchase = useCallback(
+    (id: string, price: number) => {
+      sfx("oops");
+      setShakeId(id);
+      setBlocked({ need: Math.max(1, price - data.fishCoins), key: Date.now() });
+      window.setTimeout(() => setShakeId((cur) => (cur === id ? null : cur)), 550);
+      window.setTimeout(() => setBlocked(null), 1800);
+    },
+    [data.fishCoins, sfx],
+  );
+
   const buySnack = useCallback(
     (snack: ShopSnack) => {
-      if (!canAfford(data, snack.price)) return;
+      if (!canAfford(data, snack.price)) {
+        denyPurchase(snack.id, snack.price);
+        return;
+      }
       sfx("good");
       celebrate(snack.emoji);
       update((save) => feed(spendCoins(save, snack.price), Date.now(), snack.hunger));
     },
-    [data, sfx, celebrate, update],
+    [data, sfx, celebrate, update, denyPurchase],
   );
 
   const buyCosmetic = useCallback(
@@ -64,7 +82,10 @@ function ShopScreen() {
         }));
         return;
       }
-      if (!canAfford(data, item.price)) return;
+      if (!canAfford(data, item.price)) {
+        denyPurchase(item.id, item.price);
+        return;
+      }
       sfx("fanfare");
       celebrate(item.emoji);
       update((save) => {
@@ -76,7 +97,7 @@ function ShopScreen() {
         };
       });
     },
-    [data, sfx, celebrate, update],
+    [data, sfx, celebrate, update, denyPurchase],
   );
 
   return (
@@ -93,6 +114,20 @@ function ShopScreen() {
         >
           {burst.emoji}
         </p>
+      )}
+
+      {blocked && (
+        <div
+          key={blocked.key}
+          role="status"
+          aria-live="assertive"
+          className="pop-in pointer-events-none fixed inset-x-4 top-20 z-50 mx-auto max-w-xs rounded-3xl bg-grape px-5 py-3 text-center font-display font-black text-grape-foreground shadow-[var(--shadow-float)]"
+        >
+          <span aria-hidden className="mr-1 text-2xl">
+            🐾
+          </span>
+          Need {blocked.need} more coin{blocked.need === 1 ? "" : "s"} — play a game to earn them!
+        </div>
       )}
 
       <header className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2">
@@ -136,6 +171,7 @@ function ShopScreen() {
                 name={snack.name}
                 price={snack.price}
                 locked={!afford}
+                shaking={shakeId === snack.id}
                 onClick={() => buySnack(snack)}
                 caption={`+${snack.hunger} 🍽️`}
               />
@@ -159,6 +195,7 @@ function ShopScreen() {
                 owned={owned}
                 worn={worn}
                 locked={!owned && !afford}
+                shaking={shakeId === item.id}
                 onClick={() => buyCosmetic(item)}
               />
             );
@@ -212,6 +249,7 @@ function ItemCard({
   locked = false,
   owned = false,
   worn = false,
+  shaking = false,
   caption,
 }: {
   emoji: string;
@@ -221,10 +259,11 @@ function ItemCard({
   locked?: boolean;
   owned?: boolean;
   worn?: boolean;
+  shaking?: boolean;
   caption?: string;
 }) {
   const label = locked
-    ? `${name}, locked, costs ${price} Fish Coins`
+    ? `${name}, costs ${price} Fish Coins — not enough yet, tap to see how many more you need`
     : owned
       ? worn
         ? `${name}, wearing now, tap to take off`
@@ -234,13 +273,13 @@ function ItemCard({
   return (
     <button
       onClick={onClick}
-      disabled={locked}
       aria-label={label}
       aria-pressed={owned ? worn : undefined}
       className={cn(
         "toy-card flex flex-col items-center gap-0.5 p-3 text-center transition-transform active:scale-95",
         locked && "opacity-60",
         worn && "bg-accent text-accent-foreground",
+        shaking && "shake",
       )}
     >
       <span aria-hidden className="text-4xl">
