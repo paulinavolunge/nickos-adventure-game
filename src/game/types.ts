@@ -32,8 +32,9 @@ export type Step =
   | (StepBase & {
       kind: "keypad";
       title: string;
-      code: string;
-      hint: string;
+      /** Friendly single-tap call-to-action, e.g. "Call Mom". No numeric dialing. */
+      cta: string;
+      ctaEmoji?: string;
     })
   | (StepBase & {
       kind: "choice";
